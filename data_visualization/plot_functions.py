@@ -71,9 +71,3 @@ def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "gr
     else:
         ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
         ax.text((x1+x2)*.5, y+h , f"p = {p_val:.3f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
- 
-def varName(p):
-    "Return name of the variable as a string"
-    for k, v in globals().items():
-        if id(p) == id(v):
-            return k
