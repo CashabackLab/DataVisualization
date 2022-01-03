@@ -15,5 +15,5 @@ setup(
     # The license can be anything you like
     license='UD',
     description='Python package for visualizing human kinematic data and analytical results, tailored for the Cashaback Lab',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
 )
