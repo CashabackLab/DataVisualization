@@ -44,3 +44,9 @@ class ColorWheel():
         self.teal = '#4d9387'
         self.autumn = '#dd521b'
         
+     def get_color_cycler(self):
+        """
+        Returns color list for matplotlib's color cycler
+        Ex:  mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color= ColorWheelInstance.get_color_cycler())
+        """
+        return [self.rak_blue, self.rak_orange, self.rak_red, self.green, self.prey_blue, self.pred_red]
