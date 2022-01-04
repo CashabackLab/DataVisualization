@@ -12,7 +12,7 @@ setup(
     # Needed for dependencies
     install_requires=['numpy', 'matplotlib'],
     # *strongly* suggested for sharing
-    version='0.2',
+    version='0.1',
     # The license can be anything you like
     license='UD',
     description='Python package for visualizing human kinematic data and analytical results, tailored for the Cashaback Lab',
