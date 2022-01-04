@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct  5 09:07:08 2021
-
-@author: adam1
-"""
-#from Custom_Package import custom_plot_package as cpp
-
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
