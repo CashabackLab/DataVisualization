@@ -2,6 +2,8 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
+from tqdm.notebook import tqdm
+from PIL import Image
 
 def Custom_Legend(ax, labels: "List[String]", colors : "List of color names", ncol = 1,
                  fontsize = 6, linewidth = 4, framealpha = 0, loc = "best", fontweight = "bold",
@@ -56,45 +58,122 @@ def Custom_Legend(ax, labels: "List[String]", colors : "List of color names", nc
         
     return leg
 
-def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "grey", lw = .7, fontsize = 6):
-    if effect_size != None:
-        ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
-        ax.text((x1+x2)*.5, y+h , f"p = {p_val:.3f}, d = {abs(effect_size):.2f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
-    else:
-        ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
-        ax.text((x1+x2)*.5, y+h , f"p = {p_val:.3f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "grey", lw = .7, fontsize = 6, exact_p = False):
+    if p_val < 0.001 and not exact_p:
+    
+        if effect_size != None:
+            ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
+            ax.text((x1+x2)*.5, y+h , f"p < 0.001, d = {abs(effect_size):.2f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+        else:
+            ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
+            ax.text((x1+x2)*.5, y+h , "p < 0.001", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+            
+    elif p_val > 0.001 or exact_p:
+        if effect_size != None:
+            ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
+            ax.text((x1+x2)*.5, y+h , f"p = {p_val:.3f}, d = {abs(effect_size):.2f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+        else:
+            ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
+            ax.text((x1+x2)*.5, y+h , f"p = {p_val:.3f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
         
-def set_mpl_font_defaults(mpl, SMALLEST_SIZE = 6, SMALL_SIZE = 8,  MEDIUM_SIZE = 8,  BIGGER_SIZE = 14):
-  """
-  EXPERIMENTAL FUNCTION
-  Input: Local instance of matplotlib
-  Description: sets default plot specifications
-  """
-  #Set Default Plot Fontsize
-  
-  mpl.pyplot.rc('font', size        = SMALL_SIZE)          # controls default text sizes
-  mpl.pyplot.rc('axes', titlesize   = SMALL_SIZE)     # fontsize of the axes title
-  mpl.pyplot.rc('axes', labelsize   = MEDIUM_SIZE)    # fontsize of the x and y labels
-  mpl.pyplot.rc('xtick', labelsize  = SMALL_SIZE)    # fontsize of the tick labels
-  mpl.pyplot.rc('ytick', labelsize  = SMALL_SIZE)    # fontsize of the tick labels
-  mpl.pyplot.rc('legend', fontsize  = SMALL_SIZE)    # legend fontsize
-  mpl.pyplot.rc('figure', titlesize = BIGGER_SIZE)  # fontsize of the figure title
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+def set_Axes_Color(ax, color, remove_spines = False):
+    '''
+    Change axes color and set background to transparent
+    if remove_spines = True, removes right and top spine
+    '''
+    spines = ["left", "bottom", "right", "top"]
+
+    #Change xlabel color
+    ax.tick_params(color = color)
+    xlabel = ax.get_xlabel()
+    ax.set_xlabel(xlabel, color = color)
+    
+    #change xtick label color
+    xticks = ax.get_xticks()
+    ax.set_xticklabels(xticks)
+    xticklabels = ax.xaxis.get_ticklabels() 
+    ax.xaxis.set_ticklabels(xticklabels, color = color)
+    
+    #change ylabel color
+    ylabel = ax.get_ylabel()
+    ax.set_ylabel(ylabel, color = color)
+    
+    #change ytick label color
+    yticks = ax.get_yticks()
+    ax.set_yticklabels(yticks)
+    yticklabels = ax.yaxis.get_ticklabels() 
+    ax.yaxis.set_ticklabels(yticklabels, color = color)
+    
+    #set title color
+    title = ax.get_title()
+    ax.set_title(title, color = color)
+    
+    #set transparency
+    ax.patch.set_alpha(0)
+    
+    #set axes colors
+    for spine in spines: ax.spines[spine].set_color(color)
+    
+    #remove spines
+    if remove_spines:
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)  
+        
+
+def gen_frame(path):
+    """
+    Input: path to image
+    Generates the single frame of a gif from an image
+    """
+    im = Image.open(path)
+    alpha = im.getchannel('A')
+
+    # Convert the image into P mode but only use 255 colors in the palette out of 256
+    im = im.convert('RGB').convert('P', palette=Image.ADAPTIVE, colors=255)
+
+    # Set all pixel values below 128 to 255 , and the rest to 0
+    mask = Image.eval(alpha, lambda a: 255 if a <=128 else 0)
+
+    # Paste the color of index 255 and use alpha as a mask
+    im.paste(255, mask)
+
+    # The transparency index is 255
+    im.info['transparency'] = 255
+
+    return im
+
+def Create_GIF(filename, path, num_images, duration = 66, loop = None):
+    """
+    Temporary files must have the same name with a number indicating frame number
+    example: "filename_0.png"
+    Parameters
+    ----------
+    filename : TYPE
+        Name of temporary files to stitch together.
+    path : TYPE
+        path to temporary files.
+    num_images : TYPE
+        number of files to stitch together.
+    duration : TYPE, optional
+        GIF duration in milliseconds. The default is 66.
+    loop : TYPE, optional
+        Number of loops in the GIF. loop = 0 is infinite. The default is None (no loops).
+
+    Returns
+    -------
+    None.
+
+    """    
+    frames = []
+    
+    print("Genrating Frame Data")
+    for i in tqdm(range(num_images)):
+        frames.append(gen_frame(path + f"{filename}_{i}.png"))
+        
+    print("Saving gif...")
+    if loop is not None:
+        frames[0].save(path + f"{filename}_Gif" + '.gif', save_all=True, append_images=frames[1:], loop=loop, duration=duration)
+    else:
+        frames[0].save(path + f"{filename}_Gif" + '.gif', save_all=True, append_images=frames[1:], duration=duration)
+        
+    print("Done.")
