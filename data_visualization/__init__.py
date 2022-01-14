@@ -1,2 +1,2 @@
-from . import plot_functions
+from .plot_functions import *
 from .color_wheel import *
