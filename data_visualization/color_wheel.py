@@ -1,3 +1,6 @@
+import matplotlib.colors as mc
+import colorsys
+        
 class ColorWheel():
     """
     ColorWheel object to store common colors used by the CashabackLab
@@ -50,3 +53,43 @@ class ColorWheel():
         Ex:  mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color= ColorWheelInstance.get_color_cycler())
         """
         return [self.rak_blue, self.rak_orange, self.rak_red, self.green, self.prey_blue, self.pred_red]
+    
+    def rgb_to_hex(self, rgb):
+        """
+        Input: rgb tuple, ex: (.2, .8, .2) or (40, 185, 40)
+        Output: Hex Representation of color
+        """
+        if rgb[0] < 1:
+            int_rgb = (rgb[0] * 255, rgb[1] * 255, rgb[2] * 255)
+            int_rgb = [int(x) for x in int_rgb]
+            int_rgb = tuple(int_rgb)
+        else:
+            int_rgb = rgb
+            
+        return '#%02x%02x%02x' % int_rgb
+    
+    def lighten_color(self, color, amount = 1, return_rgb = False):
+        """
+        Lightens the given color by multiplying (1-luminosity) by the given amount.
+        Input can be matplotlib color string, hex string, or RGB tuple.
+        
+        amount must be between 0 and 2
+        amount = 1 returns the same color
+        amount > 1 returns darker shade
+        amount < 1 returns lighter shade
+        
+        Default return is Hex Code, set return_rgb = True for rgb tuple
+        
+        Examples:
+        >> lighten_color('g', amount = 0.3)
+        >> lighten_color('#F034A3', amount = 0.6)
+        >> lighten_color((.3,.55,.1), amount = 0.5)
+        """
+
+        c = colorsys.rgb_to_hls(*mc.to_rgb(color))
+        rgb = colorsys.hls_to_rgb(c[0], 1 - amount * (1 - c[1]), c[2])
+        
+        if return_rgb:
+            return rgb
+        else:
+            return rgb_to_hex(rgb)
