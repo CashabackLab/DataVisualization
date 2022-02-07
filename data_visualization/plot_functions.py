@@ -7,7 +7,7 @@ from PIL import Image
 
 def Custom_Legend(ax, labels: "List[String]", colors : "List of color names", ncol = 1,
                  fontsize = 6, linewidth = 4, framealpha = 0, loc = "best", fontweight = "bold",
-                 columnspacing = 0):
+                 columnspacing = 0, **kwargs):
     """
     Creates Custom colored legend
 
@@ -33,6 +33,7 @@ def Custom_Legend(ax, labels: "List[String]", colors : "List of color names", nc
         DESCRIPTION. The default is "bold".
     columnspacing : TYPE, optional
         DESCRIPTION. The default is 0.
+    **kwargs: Additional keyword arguents to be passed to pyplot.legend()
 
     Returns
     -------
@@ -49,7 +50,7 @@ def Custom_Legend(ax, labels: "List[String]", colors : "List of color names", nc
         custom_lines.append(Line2D([0], [0], color=color, lw=linewidth))
 
     leg = ax.legend(custom_lines, labels, fontsize = fontsize,
-             framealpha = framealpha, loc = loc, ncol = ncol, columnspacing = columnspacing)
+             framealpha = framealpha, loc = loc, ncol = ncol, columnspacing = columnspacing, **kwargs)
     
     leg_text = leg.get_texts()
     for i, text in enumerate(leg_text):
