@@ -92,4 +92,4 @@ class ColorWheel():
         if return_rgb:
             return rgb
         else:
-            return rgb_to_hex(rgb)
+            return self.rgb_to_hex(rgb)
