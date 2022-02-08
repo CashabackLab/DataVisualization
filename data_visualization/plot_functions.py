@@ -77,7 +77,7 @@ def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "gr
             ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
             ax.text((x1+x2)*.5, y+h , f"p = {p_val:.3f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
         
-def set_Axes_Color(ax, color, remove_spines = False):
+def set_Axes_Color(ax, color, remove_spines = False, leave_xticklabel_colors = False, leave_yticklabel_colors = False):
     '''
     Change axes color and set background to transparent
     if remove_spines = True, removes right and top spine
@@ -91,9 +91,12 @@ def set_Axes_Color(ax, color, remove_spines = False):
     
     #change xtick label color
     xticks = ax.get_xticks()
-    ax.set_xticklabels(xticks)
-    xticklabels = ax.xaxis.get_ticklabels() 
-    ax.xaxis.set_ticklabels(xticklabels, color = color)
+    xticklabels = ax.xaxis.get_ticklabels()
+
+    if not leave_xticklabel_colors:
+        ax.set_xticks(xticks, labels = xticklabels, color = color)
+    else:
+        ax.set_xticks(xticks, labels = xticklabels)
     
     #change ylabel color
     ylabel = ax.get_ylabel()
@@ -101,9 +104,12 @@ def set_Axes_Color(ax, color, remove_spines = False):
     
     #change ytick label color
     yticks = ax.get_yticks()
-    ax.set_yticklabels(yticks)
     yticklabels = ax.yaxis.get_ticklabels() 
-    ax.yaxis.set_ticklabels(yticklabels, color = color)
+
+    if not leave_yticklabel_colors:
+        ax.set_yticks(yticks, labels = yticklabels, color = color)
+    else:
+        ax.set_yticks(yticks, labels = yticklabels)
     
     #set title color
     title = ax.get_title()
@@ -118,7 +124,7 @@ def set_Axes_Color(ax, color, remove_spines = False):
     #remove spines
     if remove_spines:
         ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)  
+        ax.spines["right"].set_visible(False)    
         
 
 def gen_frame(path):
