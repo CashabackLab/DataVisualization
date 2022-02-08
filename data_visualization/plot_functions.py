@@ -1,6 +1,7 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import spearmanr
 from matplotlib.lines import Line2D
 from tqdm.notebook import tqdm
 from PIL import Image
