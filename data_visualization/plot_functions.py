@@ -226,7 +226,7 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
             
     return axin
 
-  def Pair_Plot(parameter_array, labels, **kwargs):
+def Pair_Plot(parameter_array, labels, **kwargs):
     """
     Plots distribution of parameters, with marginal distributions on the diagonal and joint
     distributions everywhere else.
@@ -252,110 +252,110 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
     fontdict = dict(fontsize = tick_size, color = "k")
 
     for row in range(num_params):
-        for col in range(num_params):
-            max_val = np.max(parameter_array[:, col])
-            min_val = np.min(parameter_array[:, col])
+      for col in range(num_params):
+          max_val = np.max(parameter_array[:, col])
+          min_val = np.min(parameter_array[:, col])
 
-            max_val += 0.005*max_val
-            min_val -= 0.005*min_val
+          max_val += 0.005*max_val
+          min_val -= 0.005*min_val
 
-            ymax_val = np.max(parameter_array[:, row])
-            ymin_val = np.min(parameter_array[:, row]) 
+          ymax_val = np.max(parameter_array[:, row])
+          ymin_val = np.min(parameter_array[:, row]) 
 
-            ymax_val += 0.005*ymax_val
-            ymin_val -= 0.005*ymin_val
-            #Plot Marginal Distribution at the bottom of the figure
-            if row == col:
-                #Marginal
-                ax[row, col].hist(parameter_array[:, col], bins = bins, density = True, color = significance_color, zorder = 5)
+          ymax_val += 0.005*ymax_val
+          ymin_val -= 0.005*ymin_val
+          #Plot Marginal Distribution at the bottom of the figure
+          if row == col:
+              #Marginal
+              ax[row, col].hist(parameter_array[:, col], bins = bins, density = True, color = significance_color, zorder = 5)
 
-                if kwargs.get("show_cumulative", True):
-                    #Plot cumulative behind the marginal
-                    axin = ax[row, col].inset_axes([0, 0, 1, 1], zorder = 0)    # create new inset axes in axes coordinates
+              if kwargs.get("show_cumulative", True):
+                  #Plot cumulative behind the marginal
+                  axin = ax[row, col].inset_axes([0, 0, 1, 1], zorder = 0)    # create new inset axes in axes coordinates
 
-                    axin.hist(parameter_array[:, col], bins = bins, density = True, color = significance_color, alpha = .25, cumulative = True, zorder = 0)
-                    axin.patch.set_alpha(0)
-                    axin.axis("off")
-                    axin.set_xlim(min_val, max_val)
+                  axin.hist(parameter_array[:, col], bins = bins, density = True, color = significance_color, alpha = .25, cumulative = True, zorder = 0)
+                  axin.patch.set_alpha(0)
+                  axin.axis("off")
+                  axin.set_xlim(min_val, max_val)
 
-                #Plot 95% intervals
-                sorted_arr = np.sort(parameter_array[:, col]) 
-                low_end = sorted_arr[int(0.025 * sorted_arr.shape[0])]
-                high_end = sorted_arr[int(0.975 * sorted_arr.shape[0])]
-                ax[row, col].axvline(low_end, color = box_color, lw = 1)
-                ax[row, col].axvline(high_end, color = box_color, lw = 1)
-                #Set Border color
-                set_Axes_Color(ax[row, col], box_color)
+              #Plot 95% intervals
+              sorted_arr = np.sort(parameter_array[:, col]) 
+              low_end = sorted_arr[int(0.025 * sorted_arr.shape[0])]
+              high_end = sorted_arr[int(0.975 * sorted_arr.shape[0])]
+              ax[row, col].axvline(low_end, color = box_color, lw = 1)
+              ax[row, col].axvline(high_end, color = box_color, lw = 1)
+              #Set Border color
+              set_Axes_Color(ax[row, col], box_color)
 
-                ax[row, col].set_xlim(min_val, max_val)
-            #Plot Joint Distributions
-            else:
-                #get rho and p_val
-                rho, p_val = spearmanr(parameter_array[:, col], parameter_array[:, row])
-                #If significant, color dots green and display stats
-                if p_val < 0.05 :
-                    ax[row, col].scatter(parameter_array[:, col], parameter_array[:, row], s = 1, lw = 0, color = significance_color, label = fr'$\rho = {rho:.3f}$')
-                    ax[row, col].set_xlim(min_val, max_val)
+              ax[row, col].set_xlim(min_val, max_val)
+          #Plot Joint Distributions
+          else:
+              #get rho and p_val
+              rho, p_val = spearmanr(parameter_array[:, col], parameter_array[:, row])
+              #If significant, color dots green and display stats
+              if p_val < 0.05 :
+                  ax[row, col].scatter(parameter_array[:, col], parameter_array[:, row], s = 1, lw = 0, color = significance_color, label = fr'$\rho = {rho:.3f}$')
+                  ax[row, col].set_xlim(min_val, max_val)
 
-                    if p_val < 0.001: p_string = "p < 0.001"
-                    else: p_string = f"p = {p_val:.3f}"
+                  if p_val < 0.001: p_string = "p < 0.001"
+                  else: p_string = f"p = {p_val:.3f}"
 
-                    if row == col:
-                        Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = "upper left", handlelength = 0, handletextpad = 0)
-                    else:
-                        Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = 0, handlelength = 0, handletextpad = -0)
+                  if row == col:
+                      Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = "upper left", handlelength = 0, handletextpad = 0)
+                  else:
+                      Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = 0, handlelength = 0, handletextpad = -0)
 
-                    set_Axes_Color(ax[row, col], box_color)
-                #If not significant, grey out the dots
-                else:
-                    ax[row, col].scatter(parameter_array[:, col], parameter_array[:, row], s = 1, lw = 0, color = dot_color)
-                    ax[row, col].set_xlim(min_val, max_val)
+                  set_Axes_Color(ax[row, col], box_color)
+              #If not significant, grey out the dots
+              else:
+                  ax[row, col].scatter(parameter_array[:, col], parameter_array[:, row], s = 1, lw = 0, color = dot_color)
+                  ax[row, col].set_xlim(min_val, max_val)
 
-                    set_Axes_Color(ax[row, col], box_color)
+                  set_Axes_Color(ax[row, col], box_color)
 
-                xlims = ax[row, col].get_xlim()
-                ylims = ax[row, col].get_ylim()
+              xlims = ax[row, col].get_xlim()
+              ylims = ax[row, col].get_ylim()
 
-                ax[row, col].set_xlim(min_val, max_val)
-                ax[row, col].set_ylim(ymin_val, ymax_val)
+              ax[row, col].set_xlim(min_val, max_val)
+              ax[row, col].set_ylim(ymin_val, ymax_val)
 
     #Set labels and ticks
     for row in range(num_params):
-        for col in range(num_params):
+      for col in range(num_params):
 
-            #Set ylabels and ticks
-            if col == 0 and row != 0: #Want to handle plot [0, 0] special later on
-                ax[row, col].set_ylabel(labels[row], fontsize = 10, color = "k")
+          #Set ylabels and ticks
+          if col == 0 and row != 0: #Want to handle plot [0, 0] special later on
+              ax[row, col].set_ylabel(labels[row], fontsize = 10, color = "k")
 
-                y_lims = ax[row, row].get_xlim()
-                ax[row, col].set_ylim(y_lims)
-                #setting yticklabels to 20% and 80% of limits
-                ax[row, col].set_yticks([y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]), y_lims[0] + .8*abs(y_lims[1] - y_lims[0])], fontsize = tick_size, fontcolor = "k")
-                ax[row, col].set_yticklabels([f"{y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]):.3f}", f"{y_lims[0] + .8*abs(y_lims[1] - y_lims[0]):.3f}"], fontdict = fontdict)
+              y_lims = ax[row, row].get_xlim()
+              ax[row, col].set_ylim(y_lims)
+              #setting yticklabels to 20% and 80% of limits
+              ax[row, col].set_yticks([y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]), y_lims[0] + .8*abs(y_lims[1] - y_lims[0])], fontsize = tick_size, fontcolor = "k")
+              ax[row, col].set_yticklabels([f"{y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]):.3f}", f"{y_lims[0] + .8*abs(y_lims[1] - y_lims[0]):.3f}"], fontdict = fontdict)
 
-            else:
-                ax[row, col].set_yticks([])
+          else:
+              ax[row, col].set_yticks([])
 
-            #Set xlabels and ticks
-            if row == num_params-1:
-                ax[row, col].set_xlabel(labels[col], fontsize = 10, color = "k")
+          #Set xlabels and ticks
+          if row == num_params-1:
+              ax[row, col].set_xlabel(labels[col], fontsize = 10, color = "k")
 
-                x_lims = ax[row, col].get_xlim()
+              x_lims = ax[row, col].get_xlim()
 
-                ax[row, col].set_xticks([x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]), x_lims[0] + .8*abs(x_lims[1] - x_lims[0])], size = tick_size, fontcolor = "k")
-                ax[row, col].set_xticklabels([f"{x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]):.3f}", f"{x_lims[0] + .8*abs(x_lims[1] - x_lims[0]):.3f}"], fontdict = fontdict)
+              ax[row, col].set_xticks([x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]), x_lims[0] + .8*abs(x_lims[1] - x_lims[0])], size = tick_size, fontcolor = "k")
+              ax[row, col].set_xticklabels([f"{x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]):.3f}", f"{x_lims[0] + .8*abs(x_lims[1] - x_lims[0]):.3f}"], fontdict = fontdict)
 
-            else:
-                ax[row, col].set_xticks([])
+          else:
+              ax[row, col].set_xticks([])
 
 
-            #If at the bottom row, adjust the marginal distribution at [0, 0]
-            if row == num_params-1 and col == 0:
-                ax[0, 0].set_ylabel(labels[0], fontsize = 10, color = "k")
+          #If at the bottom row, adjust the marginal distribution at [0, 0]
+          if row == num_params-1 and col == 0:
+              ax[0, 0].set_ylabel(labels[0], fontsize = 10, color = "k")
 
-                y_lims = ax[0, 0].get_ylim()
-                new_ylims = ax[0, 1].get_ylim()
+              y_lims = ax[0, 0].get_ylim()
+              new_ylims = ax[0, 1].get_ylim()
 
-                ax[0, 0].set_yticks([y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]), y_lims[0] + .8*abs(y_lims[1] - y_lims[0])])
-                ax[0, 0].set_yticklabels([f"{new_ylims[0] + .2 * abs(new_ylims[1] - new_ylims[0]):.3f}", f"{new_ylims[0] + .8*abs(new_ylims[1] - new_ylims[0]):.3f}"], fontdict = fontdict)
+              ax[0, 0].set_yticks([y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]), y_lims[0] + .8*abs(y_lims[1] - y_lims[0])])
+              ax[0, 0].set_yticklabels([f"{new_ylims[0] + .2 * abs(new_ylims[1] - new_ylims[0]):.3f}", f"{new_ylims[0] + .8*abs(new_ylims[1] - new_ylims[0]):.3f}"], fontdict = fontdict)
     return fig, ax
