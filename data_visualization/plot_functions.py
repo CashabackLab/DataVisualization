@@ -77,7 +77,7 @@ def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "gr
             ax.plot([x1, x1, x2, x2], [y, y, y, y], lw=lw, c=color)
             ax.text((x1+x2)*.5, y+h , f"p = {p_val:.3f}", ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
         
-def set_Axes_Color(ax, color, remove_spines = False, leave_xticklabel_colors = False, leave_yticklabel_colors = False):
+def set_Axes_Color(ax, color, **kwargs):
     '''
     Change axes color and set background to transparent
     if remove_spines = True, removes right and top spine
@@ -93,7 +93,10 @@ def set_Axes_Color(ax, color, remove_spines = False, leave_xticklabel_colors = F
     xticks = ax.get_xticks()
     xticklabels = ax.xaxis.get_ticklabels()
 
-    if not leave_xticklabel_colors:
+    if kwargs.setdefault("default_xticklabels", False):
+        xticklabels = [str(x) for x in xticks]
+        
+    if not kwargs.setdefault("leave_xticklabel_colors", False):
         ax.set_xticks(xticks, labels = xticklabels, color = color)
     else:
         ax.set_xticks(xticks, labels = xticklabels)
@@ -104,9 +107,12 @@ def set_Axes_Color(ax, color, remove_spines = False, leave_xticklabel_colors = F
     
     #change ytick label color
     yticks = ax.get_yticks()
-    yticklabels = ax.yaxis.get_ticklabels() 
-
-    if not leave_yticklabel_colors:
+    yticklabels = ax.get_yticklabels()
+    
+    if kwargs.setdefault("default_yticklabels", False):
+        yticklabels = [str(y) for y in yticks]
+            
+    if not kwargs.setdefault("leave_yticklabel_colors", False):
         ax.set_yticks(yticks, labels = yticklabels, color = color)
     else:
         ax.set_yticks(yticks, labels = yticklabels)
@@ -122,9 +128,9 @@ def set_Axes_Color(ax, color, remove_spines = False, leave_xticklabel_colors = F
     for spine in spines: ax.spines[spine].set_color(color)
     
     #remove spines
-    if remove_spines:
+    if kwargs.setdefault("remove_spines", False):
         ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)    
+        ax.spines["right"].set_visible(False)
         
 
 def gen_frame(path):
