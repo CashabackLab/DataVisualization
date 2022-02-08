@@ -238,10 +238,13 @@ def Pair_Plot(parameter_array, labels, **kwargs):
     legend_color = kwargs.setdefault("legend_color", "#218421") #dark green
     bins = kwargs.setdefault("bins", 50)
     significance_color = kwargs.setdefault("significance_color", '#33cc33') #green
+    figsize = kwargs.setdefault("figsize", (6, 6))
+    dpi = kwargs.setdefault("dpi", 300)
+    hspace = kwargs.setdefault("hspace", .1)
+    wspace = kwargs.setdefault("wspace", .1)
+    labelcolor = kwargs.setdefault("labelcolor", "k")
     """
     num_params = parameter_array.shape[1]
-
-    fig, ax = plt.subplots(nrows = num_params , ncols = num_params, dpi = 300, figsize = (6, 6), gridspec_kw = dict(hspace = .1, wspace = .1))
 
     #parameters
     box_color = kwargs.setdefault("box_color", '#727273') #dark grey
@@ -250,7 +253,15 @@ def Pair_Plot(parameter_array, labels, **kwargs):
     legend_color = kwargs.setdefault("legend_color", "#218421") #dark green
     bins = kwargs.setdefault("bins", 50)
     significance_color = kwargs.setdefault("significance_color", '#33cc33') #green
-    fontdict = dict(fontsize = tick_size, color = "k")
+    figsize = kwargs.setdefault("figsize", (6, 6))
+    dpi = kwargs.setdefault("dpi", 300)
+    hspace = kwargs.setdefault("hspace", .1)
+    wspace = kwargs.setdefault("wspace", .1)
+    labelcolor = kwargs.setdefault("labelcolor", "k")
+    
+    fontdict = dict(fontsize = tick_size, color = labelcolor)
+    
+    fig, ax = plt.subplots(nrows = num_params , ncols = num_params, dpi = dpi, figsize = figsize, gridspec_kw = dict(hspace = hspace, wspace = wspace))
 
     for row in range(num_params):
       for col in range(num_params):
