@@ -250,18 +250,18 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
     bins = kwargs.setdefault("bins", 50)
     significance_color = kwargs.setdefault("significance_color", '#33cc33') #green
     fontdict = dict(fontsize = tick_size, color = "k")
-        
+
     for row in range(num_params):
         for col in range(num_params):
             max_val = np.max(parameter_array[:, col])
             min_val = np.min(parameter_array[:, col])
-            
+
             max_val += 0.005*max_val
             min_val -= 0.005*min_val
 
             ymax_val = np.max(parameter_array[:, row])
             ymin_val = np.min(parameter_array[:, row]) 
-            
+
             ymax_val += 0.005*ymax_val
             ymin_val -= 0.005*ymin_val
             #Plot Marginal Distribution at the bottom of the figure
@@ -315,14 +315,14 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
 
                 xlims = ax[row, col].get_xlim()
                 ylims = ax[row, col].get_ylim()
-                
+
                 ax[row, col].set_xlim(min_val, max_val)
                 ax[row, col].set_ylim(ymin_val, ymax_val)
-                
+
     #Set labels and ticks
     for row in range(num_params):
         for col in range(num_params):
-            
+
             #Set ylabels and ticks
             if col == 0 and row != 0: #Want to handle plot [0, 0] special later on
                 ax[row, col].set_ylabel(labels[row], fontsize = 10, color = "k")
@@ -341,10 +341,10 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
                 ax[row, col].set_xlabel(labels[col], fontsize = 10, color = "k")
 
                 x_lims = ax[row, col].get_xlim()
-                
+
                 ax[row, col].set_xticks([x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]), x_lims[0] + .8*abs(x_lims[1] - x_lims[0])], size = tick_size, fontcolor = "k")
                 ax[row, col].set_xticklabels([f"{x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]):.3f}", f"{x_lims[0] + .8*abs(x_lims[1] - x_lims[0]):.3f}"], fontdict = fontdict)
-                
+
             else:
                 ax[row, col].set_xticks([])
 
