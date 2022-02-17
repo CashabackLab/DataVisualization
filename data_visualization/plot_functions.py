@@ -233,7 +233,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
     Plots distribution of parameters, with marginal distributions on the diagonal and joint
     distributions everywhere else.
     #optional parameters
-        box_color          = kwargs.get("box_color", '#727273') #dark grey
+        box_color          = kwargs.get("box_color", 'black')
         dot_color          = kwargs.get("dot_color", '#B2B1B3') #light grey
         cumulative_color   = kwargs.get("cumulative_color", "#218421") #dark green
         marginal_color     = kwargs.get("marginal_color", "#33cc33") #green
@@ -241,7 +241,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
         significance_color = kwargs.get("significance_color", '#33cc33') #green
 
         labelcolor       = kwargs.get("labelcolor", box_color)
-        confidence_color = kwargs.get("confidence_color", box_color)
+        confidence_color = kwargs.get("confidence_color", '#727273') #dark grey
 
         show_cumulative   = kwargs.get("show_cumulative", True)
         show_significance = kwargs.get("show_significance", False)
@@ -261,7 +261,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
     num_params = parameter_array.shape[1]
 
     #optional parameters
-    box_color          = kwargs.get("box_color", '#727273') #dark grey
+    box_color          = kwargs.get("box_color", 'black') 
     dot_color          = kwargs.get("dot_color", '#B2B1B3') #light grey
     cumulative_color   = kwargs.get("cumulative_color", "#218421") #dark green
     marginal_color     = kwargs.get("marginal_color", "#33cc33") #green
@@ -269,7 +269,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
     significance_color = kwargs.get("significance_color", '#33cc33') #green
 
     labelcolor       = kwargs.get("labelcolor", box_color)
-    confidence_color = kwargs.get("confidence_color", box_color)
+    confidence_color = kwargs.get("confidence_color", '#727273')#dark grey
 
     show_cumulative   = kwargs.get("show_cumulative", True)
     show_significance = kwargs.get("show_significance", False)
