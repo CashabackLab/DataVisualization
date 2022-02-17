@@ -334,7 +334,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
               ax[row, col].axvline(low_end, color = confidence_color, lw = cumulative_lw)
               ax[row, col].axvline(high_end, color = confidence_color, lw = cumulative_lw)
               #Set Border color
-               set_Axes_Color(ax[row, col], box_color, remove_spines = True)
+              set_Axes_Color(ax[row, col], box_color, remove_spines = True)
 
               ax[row, col].set_xlim(min_val, max_val)
             
@@ -352,17 +352,17 @@ def Pair_Plot(parameter_array, labels, **kwargs):
                     
                   if show_significance:
                     if row == col:
-                         Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = "upper left", handlelength = 0, handletextpad = 0)
+                        Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = "upper left", handlelength = 0, handletextpad = 0)
                     else:
-                         Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = 0, handlelength = 0, handletextpad = -0)
+                        Custom_Legend(ax[row, col], [p_string, r'$\mathbf{\rho = }$' + f'{rho:.3f}'], [legend_color, legend_color], linewidth = 0, fontsize = 6,loc = 0, handlelength = 0, handletextpad = -0)
 
-                   set_Axes_Color(ax[row, col], box_color, remove_spines = True)
+                  set_Axes_Color(ax[row, col], box_color, remove_spines = True)
               #If not significant, grey out the dots
               else:
                   ax[row, col].scatter(parameter_array[:, col], parameter_array[:, row], s = 1, lw = 0, color = dot_color, alpha = dot_alpha)
                   ax[row, col].set_xlim(min_val, max_val)
 
-                   set_Axes_Color(ax[row, col], box_color, remove_spines = True)
+                  set_Axes_Color(ax[row, col], box_color, remove_spines = True)
 
               xlims = ax[row, col].get_xlim()
               ylims = ax[row, col].get_ylim()
