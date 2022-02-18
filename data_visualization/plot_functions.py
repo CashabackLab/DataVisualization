@@ -227,7 +227,6 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
             
     return axin
 
-from scipy.stats import spearmanr
 def Pair_Plot(parameter_array, labels, **kwargs):
     """
     Plots distribution of parameters, with marginal distributions on the diagonal and joint
