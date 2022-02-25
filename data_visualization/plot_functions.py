@@ -240,6 +240,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
         significance_color = kwargs.get("significance_color", '#33cc33') #green
 
         labelcolor       = kwargs.get("labelcolor", box_color)
+        labelsize        = kwargs.get("labelsize" , 10)
         confidence_color = kwargs.get("confidence_color", '#727273') #dark grey
 
         show_cumulative   = kwargs.get("show_cumulative", True)
@@ -268,6 +269,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
     significance_color = kwargs.get("significance_color", '#33cc33') #green
 
     labelcolor       = kwargs.get("labelcolor", box_color)
+    labelsize        = kwargs.get("labelsize" , 10)
     confidence_color = kwargs.get("confidence_color", '#727273')#dark grey
 
     show_cumulative   = kwargs.get("show_cumulative", True)
@@ -376,7 +378,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
 
           #Set ylabels and ticks
           if col == 0 and row != 0: #Want to handle plot [0, 0] special later on
-              ax[row, col].set_ylabel(labels[row], fontsize = 10, color = labelcolor)
+              ax[row, col].set_ylabel(labels[row], fontsize = labelsize, color = labelcolor)
 
               y_lims = ax[row, row].get_xlim()
               ax[row, col].set_ylim(y_lims)
@@ -389,7 +391,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
 
           #Set xlabels and ticks
           if row == num_params-1:
-              ax[row, col].set_xlabel(labels[col], fontsize = 10, color = labelcolor)
+              ax[row, col].set_xlabel(labels[col], fontsize = labelsize, color = labelcolor)
 
               x_lims = ax[row, col].get_xlim()
 
@@ -402,7 +404,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
 
           #If at the bottom row, adjust the marginal distribution at [0, 0]
           if row == num_params-1 and col == 0:
-              ax[0, 0].set_ylabel(labels[0], fontsize = 10, color = labelcolor)
+              ax[0, 0].set_ylabel(labels[0], fontsize = labelsize, color = labelcolor)
 
               y_lims = ax[0, 0].get_ylim()
               new_ylims = ax[0, 1].get_ylim()
