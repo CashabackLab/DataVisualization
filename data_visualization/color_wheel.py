@@ -54,6 +54,19 @@ class ColorWheel():
         """
         return [self.rak_blue, self.rak_orange, self.rak_red, self.green, self.prey_blue, self.pred_red]
     
+    def hex_to_rgb(self, hex_code, normalize = False):
+        """
+        Input: Hex String
+        Output: integer RGB values
+        """
+        hex_code = hex_code.lstrip("#")
+        RGB_vals = tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+        
+        if normalize: 
+            RGB_vals = (RGB_vals[0] / 255, RGB_vals[1] / 255, RGB_vals[2] / 255)
+        
+        return RGB_vals
+    
     def rgb_to_hex(self, rgb):
         """
         Input: rgb tuple, ex: (.2, .8, .2) or (40, 185, 40)
