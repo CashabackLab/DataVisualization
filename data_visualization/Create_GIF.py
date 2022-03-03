@@ -1,6 +1,6 @@
 from tqdm.notebook import tqdm
 from PIL import Image
-import .gen_frame as gen_frame
+from .gen_frame import *
 
 def Create_GIF(filename, path, num_images, duration = 66, loop = None):
     """
