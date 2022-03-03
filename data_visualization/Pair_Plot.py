@@ -1,5 +1,5 @@
-import .Custom_Legend
-import .set_Axes_Color
+from .Custom_Legend import *
+from .set_Axes_Color import *
 from scipy.stats import spearmanr
 import matplotlib.pyplot as plt
 
