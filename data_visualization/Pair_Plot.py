@@ -2,6 +2,7 @@ from .Custom_Legend import *
 from .set_Axes_Color import *
 from scipy.stats import spearmanr
 import matplotlib.pyplot as plt
+import numpy as np
 
 def Pair_Plot(parameter_array, labels, **kwargs):
     """
