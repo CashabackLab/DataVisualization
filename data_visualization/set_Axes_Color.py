@@ -1,6 +1,20 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
         
+def set_axes_color(ax, color, **kwargs):
+    '''
+    Change axes color and set background to transparent
+    if remove_spines = True, removes right and top spine
+    
+    Kwargs
+    kwargs.setdefault("default_xticklabels", False)
+    kwargs.setdefault("leave_xticklabel_colors", False)
+    kwargs.setdefault("default_yticklabels", False)
+    kwargs.setdefault("leave_yticklabel_colors", False)
+    '''
+    
+    return set_Axes_Color(ax, color, **kwargs)
+
 def set_Axes_Color(ax, color, **kwargs):
     '''
     Change axes color and set background to transparent
