@@ -47,9 +47,12 @@ class ColorWheel(_dotdict):
         self.dark_blue_hc = "#4f7598" #for black backgrounds
 
         #Extras
+        self.white = '#FFFFFF'
+        self.black = '#000000'
         self.orange = '#E89D07'
         self.faded_orange = '#FFC859'
         self.burnt_orange = '#F76700'
+        self.goldenrod = "#DAA520"
         self.blue = '#2C19D4'
         self.faded_blue = '#8375FF'
         self.plum_blue = '#881BE0'
