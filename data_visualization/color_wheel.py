@@ -1,22 +1,37 @@
 import matplotlib.colors as mc
 import colorsys
-        
-class ColorWheel():
+import matplotlib.pyplot as plt        
+
+class _dotdict(dict):
+    """dot.notation access to dictionary attributes"""
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
+    
+class ColorWheel(_dotdict):
     """
     ColorWheel object to store common colors used by the CashabackLab
+    Can Access colors as a dictionary key or as a class attribute
     """
     def __init__(self):
         #Legacy Names
-        self.pred_red = "#C70808"
-        self.prey_blue = "#23537F"
-        self.rak_blue = "#0BB8FD"
-        self.rak_orange = "#FD8B0B"
-        self.rak_red = "#E35D72"
-        self.dark_grey = "#727273"
-        self.light_grey = "#B2B1B3"
-        self.purple = "#984FDE"
-        self.green = '#33cc33'
+        self.pred_red        = "#C70808"
+        self.prey_blue       = "#23537F"
+        self.rak_blue        = "#0BB8FD"
+        self.rak_orange      = "#FD8B0B"
+        self.rak_red         = "#E35D72"
+        self.dark_grey       = "#727273"
+        self.light_grey      = "#B2B1B3"
+        self.purple          = "#984FDE"
+        self.green           = '#33cc33'
         self.prey_blue_light = "#4f7598" #for black backgrounds
+        
+        self.legacy_list = ["pred_red",       
+                            "prey_blue",      
+                            "rak_blue",       
+                            "rak_orange",     
+                            "rak_red",                
+                            "prey_blue_light"]
         
         #Modern names for the same colors above 
         # hc == high contrast
@@ -106,3 +121,34 @@ class ColorWheel():
             return rgb
         else:
             return self.rgb_to_hex(rgb)
+
+    def demo_colors(self, background = "white", no_legacy = True, fontname = "Dejavu Sans"):
+        """
+        Shows a plot demo for the available colors.
+        Change background to look at colors with different backgrounds
+        set no_legacy = True to see legacy color names
+        Returns Nothing
+        """
+        if no_legacy:
+            color_keys = [x for x in self.keys() if x != "legacy_list" and x not in self.legacy_list] 
+        else:
+            color_keys = [x for x in self.keys() if x != "legacy_list"] 
+        num_colors = len(color_keys)
+        
+        plt.figure(dpi = 300, figsize = (4, 7/28 * num_colors))
+        ax = plt.gca()
+        plt.ylim(0, num_colors*1.3 +1)
+        plt.xlim(0, 1.8)
+        plt.yticks([])
+        plt.xticks([])
+        counter = 0
+        for i, color in enumerate(color_keys):
+            plt.barh((num_colors - i) *1.3, 1, color = self[color], height = 1)
+            plt.text(0.1, 1.3*(num_colors - i) , color, ha = "left", va = "center", color = "w", fontsize = 9, 
+                    fontname = fontname)
+            plt.text(1.05, 1.3*(num_colors - i) , color, ha = "left", va = "center", color = self[color], fontsize = 9,
+                    fontweight = "bold", fontname = fontname)
+
+        ax.spines.right.set_visible(False)
+        ax.spines.top.set_visible(False)
+        ax.set_facecolor(background)
