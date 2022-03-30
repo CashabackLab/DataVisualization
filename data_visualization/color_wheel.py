@@ -32,7 +32,7 @@ class ColorWheel(_dotdict):
                             "rak_orange",     
                             "rak_red",                
                             "prey_blue_light"]
-        
+
         #Modern names for the same colors above 
         # hc == high contrast
         self.dark_red = "#C70808"
@@ -47,23 +47,24 @@ class ColorWheel(_dotdict):
         self.dark_blue_hc = "#4f7598" #for black backgrounds
 
         #Extras
-        self.white = '#FFFFFF'
-        self.black = '#000000'
         self.orange = '#E89D07'
         self.faded_orange = '#FFC859'
         self.burnt_orange = '#F76700'
-        self.goldenrod = "#DAA520"
         self.blue = '#2C19D4'
         self.faded_blue = '#8375FF'
         self.plum_blue = '#881BE0'
-        self.orange_sat = '#EF9F00'
-        self.faded_orange_sat = '#FFC859'
-        self.burnt_orange = '#F76700'
+        self.sunburst_orange = "#F76700"
+        self.burnt_orange = "#CC5500"
         self.blue_sat = '#1800ED'
-        self.faded_blue_sat = '#8274FF'
 
         self.teal = '#4d9387'
         self.autumn = '#dd521b'
+        
+        self.dark_blue2  = "#016b93"
+
+        self.dark_brown  = "#854600"
+        self.brown        = "#9e5300"
+        self.light_brown = "#c86a00"
         
     def get_color_cycler(self):
         """
