@@ -126,6 +126,12 @@ class ColorWheel(_dotdict):
         else:
             return self.rgb_to_hex(rgb)
 
+    def get_hsv(self, hexrgb):
+        hexrgb = hexrgb[1]
+        hexrgb = hexrgb.lstrip("#")   
+        r, g, b = (int(hexrgb[i:i+2], 16) / 255.0 for i in range(0,5,2))
+        return colorsys.rgb_to_hsv(r, g, b)
+
     def demo_colors(self, background = "white", no_legacy = True, fontname = "Dejavu Sans"):
         """
         Shows a plot demo for the available colors.
@@ -137,16 +143,21 @@ class ColorWheel(_dotdict):
             color_keys = [x for x in self.keys() if x != "legacy_list" and x not in self.legacy_list] 
         else:
             color_keys = [x for x in self.keys() if x != "legacy_list"] 
+            
         num_colors = len(color_keys)
-        
+        #attempt to sort colors by hue
+        color_list = [(x, self[x]) for x in color_keys ]
+        color_list.sort(key=self.get_hsv)
+
         plt.figure(dpi = 300, figsize = (4, 7/28 * num_colors))
         ax = plt.gca()
         plt.ylim(0, num_colors*1.3 +1)
         plt.xlim(0, 1.8)
         plt.yticks([])
         plt.xticks([])
-        counter = 0
-        for i, color in enumerate(color_keys):
+
+        for i, pairing in enumerate(color_list):
+            color = pairing[0]
             plt.barh((num_colors - i) *1.3, 1, color = self[color], height = 1)
             plt.text(0.1, 1.3*(num_colors - i) , color, ha = "left", va = "center", color = "w", fontsize = 9, 
                     fontname = fontname)
