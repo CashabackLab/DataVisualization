@@ -55,7 +55,6 @@ class ColorWheel(_dotdict):
         self.plum_blue = '#881BE0'
         self.sunburst_orange = "#F76700"
         self.burnt_orange = "#CC5500"
-        self.blue_sat = '#1800ED'
 
         self.teal = '#4d9387'
         self.autumn = '#dd521b'
