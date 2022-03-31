@@ -10,7 +10,7 @@ setup(
     # Needed to actually package something
     packages=['data_visualization'],
     # Needed for dependencies
-    install_requires=['numpy', 'matplotlib'],
+    install_requires=['numpy', 'matplotlib >= 3.5.0'],
     # *strongly* suggested for sharing
     version='0.4.6',
     # The license can be anything you like
