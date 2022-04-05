@@ -76,7 +76,7 @@ class ColorWheel(_dotdict):
         self.brown        = "#9e5300"
         self.light_brown = "#c86a00"
 
-        self.colorlist = self._makecolorlist()
+        self.color_list = self._makecolorlist()
     def get_color_cycler(self):
         """
         Returns color list for matplotlib's color cycler
@@ -148,7 +148,7 @@ class ColorWheel(_dotdict):
         Shows a plot demo for the available colors.
         Change background to look at colors with different backgrounds
         set no_legacy = True to see legacy color names
-        Returns Nothing
+        Returns matplotlib axis object
         """
         if no_legacy:
             color_keys = [x for x in self.keys() if x not in ["legacy_list", "colorlist"] and x not in self.legacy_list] 
@@ -162,6 +162,8 @@ class ColorWheel(_dotdict):
 
         plt.figure(dpi = 300, figsize = (4, 7/28 * num_colors))
         ax = plt.gca()
+        plt.tight_layout()
+        
         plt.ylim(0, num_colors*1.3 +1)
         plt.xlim(0, 1.8)
         plt.yticks([])
@@ -186,6 +188,8 @@ class ColorWheel(_dotdict):
         ax.spines.top.set_visible(False)
         ax.set_facecolor(background)
 
+        return ax
+    
     def _makecolorlist(self):
         myList = [x for x in self.keys() if x != "legacy_list" and x not in self.legacy_list]
         
