@@ -151,9 +151,9 @@ class ColorWheel(_dotdict):
         Returns Nothing
         """
         if no_legacy:
-            color_keys = [x for x in self.keys() if x != "legacy_list" and x not in self.legacy_list] 
+            color_keys = [x for x in self.keys() if x not in ["legacy_list", "colorlist"] and x not in self.legacy_list] 
         else:
-            color_keys = [x for x in self.keys() if x != "legacy_list"] 
+            color_keys = [x for x in self.keys() if x not in ["legacy_list", "colorlist"]]
             
         num_colors = len(color_keys)
         #attempt to sort colors by hue
