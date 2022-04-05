@@ -4,10 +4,17 @@ import matplotlib.pyplot as plt
 
 class _dotdict(dict):
     """dot.notation access to dictionary attributes"""
-    __getattr__ = dict.get
+#     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
     
+    def __getattr__(self, key):
+        if key not in self.keys():
+            raise ValueError(f"No such color or method \"{key}\"")
+        else:
+            return self[f"{key}"]
+    
+#TODO Add a Random(n) function to return n random colors 
 class ColorWheel(_dotdict):
     """
     ColorWheel object to store common colors used by the CashabackLab
@@ -25,14 +32,16 @@ class ColorWheel(_dotdict):
         self.purple          = "#984FDE"
         self.green           = '#33cc33'
         self.prey_blue_light = "#4f7598" #for black backgrounds
-        
+        self.dark_blue_hc = "#4f7598" #for black backgrounds
+
         self.legacy_list = ["pred_red",       
                             "prey_blue",      
                             "rak_blue",       
                             "rak_orange",     
                             "rak_red",                
-                            "prey_blue_light"]
-
+                            "prey_blue_light",
+                            "dark_blue_hc"]
+        
         #Modern names for the same colors above 
         # hc == high contrast
         self.dark_red = "#C70808"
@@ -44,9 +53,11 @@ class ColorWheel(_dotdict):
         self.light_grey = "#B2B1B3"
         self.purple = "#984FDE"
         self.green = '#33cc33'
-        self.dark_blue_hc = "#4f7598" #for black backgrounds
+        self.hc_dark_blue = "#4f7598" #for black backgrounds
 
         #Extras
+        self.black  = "#000000"
+        self.white  = "#FFFFFF"
         self.orange = '#E89D07'
         self.faded_orange = '#FFC859'
         self.burnt_orange = '#F76700'
@@ -64,7 +75,8 @@ class ColorWheel(_dotdict):
         self.dark_brown  = "#854600"
         self.brown        = "#9e5300"
         self.light_brown = "#c86a00"
-        
+
+        self.colorlist = self._makecolorlist()
     def get_color_cycler(self):
         """
         Returns color list for matplotlib's color cycler
@@ -157,12 +169,34 @@ class ColorWheel(_dotdict):
 
         for i, pairing in enumerate(color_list):
             color = pairing[0]
-            plt.barh((num_colors - i) *1.3, 1, color = self[color], height = 1)
-            plt.text(0.1, 1.3*(num_colors - i) , color, ha = "left", va = "center", color = "w", fontsize = 9, 
+            hexcode = pairing[1]
+            plt.barh((num_colors - i) *1.3, 1, color = hexcode, height = 1)
+            
+            if color == "white":
+                fontcolor = "black"
+            else :
+                fontcolor = "white"
+                
+            plt.text(0.1, 1.3*(num_colors - i) , color, ha = "left", va = "center", color = fontcolor, fontsize = 9, 
                     fontname = fontname)
-            plt.text(1.05, 1.3*(num_colors - i) , color, ha = "left", va = "center", color = self[color], fontsize = 9,
+            plt.text(1.05, 1.3*(num_colors - i) , color, ha = "left", va = "center", color = hexcode, fontsize = 9,
                     fontweight = "bold", fontname = fontname)
 
         ax.spines.right.set_visible(False)
         ax.spines.top.set_visible(False)
         ax.set_facecolor(background)
+
+    def _makecolorlist(self):
+        myList = [x for x in self.keys() if x != "legacy_list" and x not in self.legacy_list]
+        
+        alphabet_list = []
+        for color in myList:
+            if "_" in color:
+                terms = color.split("_")
+                alphabet_list.append(terms)
+            else:
+                alphabet_list.append([color])
+                
+        alphabet_list.sort(key = lambda color: color[-1])
+        
+        return ["_".join(x) for x in alphabet_list]
