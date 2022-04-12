@@ -187,7 +187,7 @@ class ColorWheel(_dotdict):
         ax.spines.right.set_visible(False)
         ax.spines.top.set_visible(False)
         ax.set_facecolor(background)
-
+        plt.show()
         return ax
     
     def _makecolorlist(self):
