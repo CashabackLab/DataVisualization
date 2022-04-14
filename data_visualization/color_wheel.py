@@ -154,6 +154,18 @@ class ColorWheel(_colorwheeldotdict):
         hexrgb = hexrgb.lstrip("#")   
         r, g, b = (int(hexrgb[i:i+2], 16) / 255.0 for i in range(0,5,2))
         return colorsys.rgb_to_hsv(r, g, b)
+    
+    def _isnotebook():
+        try:
+            shell = get_ipython().__class__.__name__
+            if shell == 'ZMQInteractiveShell':
+                return True   # Jupyter notebook or qtconsole
+            elif shell == 'TerminalInteractiveShell':
+                return False  # Terminal running IPython
+            else:
+                return False  # Other type (?)
+        except NameError:
+            return False      # Probably standard Python interpreter
 
     def demo_colors(self, background = "white", no_legacy = True, fontname = "Dejavu Sans"):
         """
