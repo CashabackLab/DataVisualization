@@ -1,8 +1,9 @@
 import matplotlib.colors as mc
 import colorsys
 import matplotlib.pyplot as plt        
+import numpy as np
 
-class _dotdict(dict):
+class _colorwheeldotdict(dict):
     """dot.notation access to dictionary attributes"""
 #     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
@@ -14,13 +15,17 @@ class _dotdict(dict):
         else:
             return self[f"{key}"]
     
-#TODO Add a Random(n) function to return n random colors 
-class ColorWheel(_dotdict):
+class ColorWheel(_colorwheeldotdict):
     """
     ColorWheel object to store common colors used by the CashabackLab
     Can Access colors as a dictionary key or as a class attribute
     """
     def __init__(self):
+        """
+        Only define colors with Hex codes here.
+        For any attributes that are not hex code colors, create a function with the @property decorator
+        For Examples see color_list and legacy_list
+        """
         #Legacy Names
         self.pred_red        = "#C70808"
         self.prey_blue       = "#23537F"
@@ -32,15 +37,9 @@ class ColorWheel(_dotdict):
         self.purple          = "#984FDE"
         self.green           = '#33cc33'
         self.prey_blue_light = "#4f7598" #for black backgrounds
-        self.dark_blue_hc = "#4f7598" #for black backgrounds
+        self.dark_blue_hc    = "#4f7598" #for black backgrounds
+        self.plum_blue       = '#881BE0'
 
-        self.legacy_list = ["pred_red",       
-                            "prey_blue",      
-                            "rak_blue",       
-                            "rak_orange",     
-                            "rak_red",                
-                            "prey_blue_light",
-                            "dark_blue_hc"]
         
         #Modern names for the same colors above 
         # hc == high contrast
@@ -62,21 +61,34 @@ class ColorWheel(_dotdict):
         self.faded_orange = '#FFC859'
         self.burnt_orange = '#F76700'
         self.blue = '#2C19D4'
-        self.faded_blue = '#8375FF'
-        self.plum_blue = '#881BE0'
+        self.lavender = '#8375FF'
+        self.plum = '#881BE0'
         self.sunburst_orange = "#F76700"
         self.burnt_orange = "#CC5500"
-
+        self.yellow = "#FFD966"
+        
         self.teal = '#4d9387'
         self.autumn = '#dd521b'
-        
+        self.spearmint = "#45B08C"
+        self.mint      = "#AAF0D1"
         self.dark_blue2  = "#016b93"
 
         self.dark_brown  = "#854600"
         self.brown        = "#9e5300"
         self.light_brown = "#c86a00"
 
-        self.color_list = self._makecolorlist()
+        
+    @property
+    def color_list(self):
+        return [x for x in self.keys() if x not in self.legacy_list]
+    
+    @property
+    def legacy_list(self):
+        return ["pred_red", "prey_blue", "rak_blue", "rak_orange", "rak_red", "prey_blue_light", "dark_blue_hc", "plum_blue"]
+    
+    def get_random_color(self, n = 1):
+        return np.random.choice(list(self.values()), size = n, replace = False)
+    
     def get_color_cycler(self):
         """
         Returns color list for matplotlib's color cycler
@@ -137,7 +149,7 @@ class ColorWheel(_dotdict):
         else:
             return self.rgb_to_hex(rgb)
 
-    def get_hsv(self, hexrgb):
+    def _get_hsv(self, hexrgb):
         hexrgb = hexrgb[1]
         hexrgb = hexrgb.lstrip("#")   
         r, g, b = (int(hexrgb[i:i+2], 16) / 255.0 for i in range(0,5,2))
@@ -148,17 +160,17 @@ class ColorWheel(_dotdict):
         Shows a plot demo for the available colors.
         Change background to look at colors with different backgrounds
         set no_legacy = True to see legacy color names
-        Returns matplotlib axis object
+        Returns axis object
         """
         if no_legacy:
-            color_keys = [x for x in self.keys() if x not in ["legacy_list", "colorlist"] and x not in self.legacy_list] 
+            color_keys = [x for x in self.keys() if x not in self.legacy_list] 
         else:
-            color_keys = [x for x in self.keys() if x not in ["legacy_list", "colorlist"]]
+            color_keys = self.keys()
             
         num_colors = len(color_keys)
         #attempt to sort colors by hue
-        color_list = [(x, self[x]) for x in color_keys ]
-        color_list.sort(key=self.get_hsv)
+        color_list = [(x, self[x]) for x in color_keys]
+        color_list.sort(key=self._get_hsv)
 
         plt.figure(dpi = 300, figsize = (4, 7/28 * num_colors))
         ax = plt.gca()
@@ -189,18 +201,35 @@ class ColorWheel(_dotdict):
         ax.set_facecolor(background)
         plt.show()
         return ax
-    
-    def _makecolorlist(self):
-        myList = [x for x in self.keys() if x != "legacy_list" and x not in self.legacy_list]
-        
-        alphabet_list = []
-        for color in myList:
-            if "_" in color:
-                terms = color.split("_")
-                alphabet_list.append(terms)
+      
+    def find_contrast_color(self, color, n = 1, hue_weight = 1, sat_weight = 1, lum_weight = 1, avoid = []):
+        """
+        Find the top n contrasting colors in the color wheel.
+        Parameters:
+            n: number of colors to return
+            X_weight: adjust weighting of hue, luminince, or saturation. 
+            avoid: list of ColorWheel colors to avoid using
+        Returns:
+            list of top n contrasting colors
+        """
+        curr_hls = colorsys.rgb_to_hls(*mc.to_rgb(curr_color))
+
+        contrast_array = []
+        for color in self.keys():
+            if color in self.legacy_list or color in ["white", "black", "dark_grey", "light_grey"] or self[color] in avoid:
+                continue
             else:
-                alphabet_list.append([color])
-                
-        alphabet_list.sort(key = lambda color: color[-1])
+                new_hls = colorsys.rgb_to_hls(*mc.to_rgb(self[color]))
+
+                hue_diff = (abs(curr_hls[0] - new_hls[0]))*(hue_weight)
+                lum_diff = (abs(curr_hls[1] - new_hls[1]))*(lum_weight)
+                sat_diff = (abs(curr_hls[2] - new_hls[2]))*(sat_weight)
+
+                contrast_ratio = (hue_diff + lum_diff + sat_diff)**.5
+
+                contrast_array.append( [self[color], contrast_ratio] )
+
+        contrast_array.sort(key = lambda x: -x[1])
+        return_array = [contrast_array[i][0] for i in range(n)]
         
-        return ["_".join(x) for x in alphabet_list]
+        return return_array
