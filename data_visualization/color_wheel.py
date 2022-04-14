@@ -155,7 +155,7 @@ class ColorWheel(_colorwheeldotdict):
         r, g, b = (int(hexrgb[i:i+2], 16) / 255.0 for i in range(0,5,2))
         return colorsys.rgb_to_hsv(r, g, b)
     
-    def _isnotebook():
+    def _isnotebook(self):
         try:
             shell = get_ipython().__class__.__name__
             if shell == 'ZMQInteractiveShell':
