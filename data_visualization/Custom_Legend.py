@@ -39,9 +39,7 @@ def customlegend(ax, labels: "List[String]", colors : "List of color names", nco
 
     """
     #Alias for Custom_Legend
-    return Custom_Legend(ax, labels, colors , ncol = ncol,
-                 fontsize = fontsize, linewidth = linewidth, framealpha = framealpha, loc = loc, fontweight = fontweight,
-                 columnspacing = columnspacing, **kwargs)
+    return Custom_Legend(ax, labels, colors , ncol = ncol, fontsize = fontsize, linewidth = linewidth, framealpha = framealpha, loc = loc, fontweight = fontweight, columnspacing = columnspacing, **kwargs)
   
 def Custom_Legend(ax, labels: "List[String]", colors : "List of color names", ncol = 1,
                  fontsize = 6, linewidth = 4, framealpha = 0, loc = "best", fontweight = "bold",
