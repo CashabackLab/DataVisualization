@@ -1,6 +1,10 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
+def statannotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "grey", lw = .7, fontsize = 6, exact_p = False):
+    #Alias for Stat_Annotation
+    Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "grey", lw = .7, fontsize = 6, exact_p = False)
+    
 def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "grey", lw = .7, fontsize = 6, exact_p = False):
     if p_val < 0.001 and not exact_p:
     
