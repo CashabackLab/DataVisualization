@@ -7,3 +7,5 @@ from .plot_inset_image import *
 from .Custom_Legend import *
 from .Pair_Plot import *
 from .Stat_Annotation import *
+from .jitterdata import jitterdata
+from .boxplot import boxplot
