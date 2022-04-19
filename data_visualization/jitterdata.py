@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 def jitterdata(ax, left_x, right_x, left_data, right_data, noise_scale, **kwargs):
     circle_size  = kwargs.get("circle_size", 8)
