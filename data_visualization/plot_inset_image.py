@@ -2,7 +2,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1, format = "png", ignore_aspect = False):
+def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1, format = "png", ignore_aspect = False, return_fig_dimensions = False):
     """
     Plot specified image on the given axis. 
     Only img_height or img_width is needed. img_width superceeds img_height
@@ -38,5 +38,8 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
             axin.imshow(arr_image, aspect = "auto")
             #width, height of generated figure
             fig_dimensions = (img_width, img_width / aspect_ratio)
-    
-    return axin, fig_dimensions
+            
+    if return_fig_dimensions:
+        return axin, fig_dimensions
+    else:
+        return axin
