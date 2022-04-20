@@ -30,9 +30,13 @@ def plot_inset_image(ax, x_pos, y_pos, filename, img_height = 1, img_width = -1,
         if img_width < 0:
             axin = ax.inset_axes([x_pos, y_pos, img_height * aspect_ratio, img_height], transform=ax.transData)    # create new inset axes in data coordinates
             axin.imshow(arr_image, aspect = "auto")
+            #width, height of generated figure
+            fig_dimensions = (img_height * aspect_ratio, img_height)
         #if width is given
         else:
             axin = ax.inset_axes([x_pos, y_pos, img_width, img_width / aspect_ratio], transform=ax.transData)    # create new inset axes in data coordinates
             axin.imshow(arr_image, aspect = "auto")
-            
-    return axin
+            #width, height of generated figure
+            fig_dimensions = (img_width, img_width / aspect_ratio)
+    
+    return axin, fig_dimensions
