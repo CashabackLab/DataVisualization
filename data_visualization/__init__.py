@@ -1,4 +1,3 @@
-#from .plot_functions import * #to be removed next update
 from .color_wheel import *
 from .gen_frame import *
 from .Create_GIF import *
