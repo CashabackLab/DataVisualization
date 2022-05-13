@@ -8,4 +8,4 @@ from .Pair_Plot import *
 from .Stat_Annotation import *
 from .jitterdata import jitterdata
 from .boxplot import boxplot
-from .generate_icons import gen_sight_icon, gen_reward_icon
+from .generate_icons import get_sight_icon, get_reward_icon
