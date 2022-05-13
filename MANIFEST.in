@@ -1,1 +1,1 @@
-include data_visualization/*.png
+include data_visualization/images/*
