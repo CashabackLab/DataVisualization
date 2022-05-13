@@ -17,4 +17,5 @@ setup(
     license='MIT',
     description='Python package for visualizing human kinematic data and analytical results, tailored for the Cashaback Lab',
     long_description=open('README.md').read(),
+    include_package_data=True,
 )
