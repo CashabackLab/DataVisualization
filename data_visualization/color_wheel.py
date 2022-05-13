@@ -77,10 +77,21 @@ class ColorWheel(_colorwheeldotdict):
         self.brown        = "#9e5300"
         self.light_brown = "#c86a00"
 
+        self.bubblegum = "#FFC1CC"
+        self.red = "#f63333"
+
         
+    @property
+    def num_colors(self):
+        return len(self.color_list)
+    
     @property
     def color_list(self):
         return [x for x in self.keys() if x not in self.legacy_list]
+    
+    @property
+    def color_list_hex(self):
+        return [self[x] for x in self.keys() if x not in self.legacy_list]
     
     @property
     def legacy_list(self):
@@ -102,7 +113,7 @@ class ColorWheel(_colorwheeldotdict):
         Output: integer RGB values
         """
         hex_code = hex_code.lstrip("#")
-        RGB_vals = tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+        RGB_vals = tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4))
         
         if normalize: 
             RGB_vals = (RGB_vals[0] / 255, RGB_vals[1] / 255, RGB_vals[2] / 255)
@@ -174,12 +185,25 @@ class ColorWheel(_colorwheeldotdict):
         set no_legacy = True to see legacy color names
         Returns axis object
         """
+        if self._isnotebook:
+            return self._demo_colors_notebook(background = background, no_legacy = no_legacy, fontname = fontname)
+        else:
+            return self._demo_colors_spyder(background = background, no_legacy = no_legacy, fontname = fontname)
+
+    def _demo_colors_notebook(self, background = "white", no_legacy = True, fontname = "Dejavu Sans"):
+        """
+        Shows a plot demo for the available colors.
+        Change background to look at colors with different backgrounds
+        set no_legacy = True to see legacy color names
+        Returns axis object
+        """
         if no_legacy:
             color_keys = [x for x in self.keys() if x not in self.legacy_list] 
         else:
             color_keys = self.keys()
             
         num_colors = len(color_keys)
+        
         #attempt to sort colors by hue
         color_list = [(x, self[x]) for x in color_keys]
         color_list.sort(key=self._get_hsv)
@@ -211,9 +235,65 @@ class ColorWheel(_colorwheeldotdict):
         ax.spines.right.set_visible(False)
         ax.spines.top.set_visible(False)
         ax.set_facecolor(background)
-        plt.show()
         return ax
-      
+    
+    def _demo_colors_spyder(self, background = "white", no_legacy = True, fontname = "Dejavu Sans"):
+        """
+        Shows a plot demo for the available colors.
+        Change background to look at colors with different backgrounds
+        set no_legacy = True to see legacy color names
+        Returns axis object
+        """
+        if no_legacy:
+            color_keys = [x for x in self.keys() if x not in self.legacy_list] 
+        else:
+            color_keys = self.keys()
+            
+        num_colors = len(color_keys)
+        
+        #attempt to sort colors by hue
+        color_list = [(x, self[x]) for x in color_keys]
+        color_list.sort(key=self._get_hsv)
+
+        iter_color_list = iter(color_list)
+        n_plots = len(color_list)//10
+        fig, axes = plt.subplots(nrows = 1, ncols = n_plots, dpi = 300, figsize = (3 * n_plots, (7/28 * num_colors)/ n_plots))
+        plt.subplots_adjust(wspace = 0)
+        for j in range(n_plots):
+            print(j)
+            ax = axes[j]
+
+            ax.set_ylim(0, 10*1.3 +1)
+            ax.set_xlim(0, 1.8)
+            ax.set_yticks([])
+            ax.set_xticks([])
+
+            if j+1 == n_plots and num_colors %10 != 0:
+                plotted_colors = num_colors % 10
+                print(plotted_colors)
+            else:
+                plotted_colors = 10
+            for i in range(plotted_colors):
+                pairing = next(iter_color_list)
+                color = pairing[0]
+                hexcode = pairing[1]
+                ax.barh((10 - i) *1.3, 1, color = hexcode, height = 1)
+
+                if color == "white":
+                    fontcolor = "black"
+                else :
+                    fontcolor = "white"
+
+                ax.text(0.1, 1.3*(10 - i) , color, ha = "left", va = "center", color = fontcolor, fontsize = 7, 
+                        fontname = fontname)
+                ax.text(1.05, 1.3*(10 - i) , color, ha = "left", va = "center", color = hexcode, fontsize = 7,
+                        fontweight = "bold", fontname = fontname)
+
+            ax.spines.right.set_visible(False)
+            ax.spines.top.set_visible(False)
+            ax.set_facecolor(background)
+        return ax
+    
     def find_contrast_color(self, color, n = 1, hue_weight = 1, sat_weight = 1, lum_weight = 1, avoid = []):
         """
         Find the top n contrasting colors in the color wheel.
@@ -224,7 +304,7 @@ class ColorWheel(_colorwheeldotdict):
         Returns:
             list of top n contrasting colors
         """
-        curr_hls = colorsys.rgb_to_hls(*mc.to_rgb(curr_color))
+        curr_hls = colorsys.rgb_to_hls(*mc.to_rgb(color))
 
         contrast_array = []
         for color in self.keys():
@@ -245,3 +325,22 @@ class ColorWheel(_colorwheeldotdict):
         return_array = [contrast_array[i][0] for i in range(n)]
         
         return return_array
+    
+    def _get_hsv(self, hexrgb):
+        hexrgb = hexrgb[1]
+        hexrgb = hexrgb.lstrip("#")   
+        r, g, b = (int(hexrgb[i:i+2], 16) / 255.0 for i in range(0,5,2))
+        return colorsys.rgb_to_hsv(r, g, b)
+
+    @property
+    def _isnotebook(self):
+        try:
+            shell = get_ipython().__class__.__name__
+            if shell == 'ZMQInteractiveShell':
+                return True   # Jupyter notebook or qtconsole
+            elif shell == 'TerminalInteractiveShell':
+                return False  # Terminal running IPython
+            else:
+                return False  # Other type (?)
+        except NameError:
+            return False      # Probably standard Python interpreter
