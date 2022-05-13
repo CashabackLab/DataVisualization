@@ -35,7 +35,6 @@ def get_sight_icon(color):
     pic_format = "png"
     new_color = color #change this to desired color
 
-
     path = __file__[:-18]
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
@@ -65,8 +64,6 @@ def get_reward_icon(color):
     pic_format = "png"
     new_color = color #change this to desired color
 
-
-    print(__file__)
     path = __file__[:-18]
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
