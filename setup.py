@@ -10,9 +10,9 @@ setup(
     # Needed to actually package something
     packages=['data_visualization'],
     # Needed for dependencies
-    install_requires=['numpy', 'matplotlib >= 3.5.0'],
+    install_requires=['numpy', 'matplotlib >= 3.5.0', 'PIL'],
     # *strongly* suggested for sharing
-    version='0.5.9',
+    version='0.5.10',
     # The license can be anything you like
     license='MIT',
     description='Python package for visualizing human kinematic data and analytical results, tailored for the Cashaback Lab',
