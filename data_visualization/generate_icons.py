@@ -36,7 +36,9 @@ def get_sight_icon(color):
     new_color = color #change this to desired color
 
 
-    img = Image.open(fileName + '.' + pic_format)
+    path = __file__[-13:]
+    filepath = os.path.join(path, "images", fileName)
+    img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
     datas = img.getdata()
 
@@ -64,7 +66,9 @@ def get_reward_icon(color):
     new_color = color #change this to desired color
 
 
-    img = Image.open(fileName + '.' + pic_format)
+    path = __file__[-13:]
+    filepath = os.path.join(path, "images", fileName)
+    img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
     datas = img.getdata()
 
