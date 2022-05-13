@@ -66,6 +66,7 @@ def get_reward_icon(color):
     new_color = color #change this to desired color
 
 
+    print(__file__)
     path = __file__[-13:]
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
