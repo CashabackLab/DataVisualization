@@ -36,7 +36,7 @@ def get_sight_icon(color):
     new_color = color #change this to desired color
 
 
-    img = Image.open(os.path.join("gen_icons", fileName) + '.' + pic_format)
+    img = Image.open(os.path.join(os.path.abspath(os.getcwd()), "gen_icons", fileName) + '.' + pic_format)
     img = img.convert("RGBA")
     datas = img.getdata()
 
@@ -59,12 +59,12 @@ def get_reward_icon(color):
     Color must be in hex code.
     """
     
-    fileName = "Reward_sound"
+    fileName = "Reward_Sound"
     pic_format = "png"
     new_color = color #change this to desired color
 
 
-    img = Image.open(os.path.join("gen_icons", fileName) + '.' + pic_format)
+    img = Image.open(os.path.join(os.path.abspath(os.getcwd()), "gen_icons", fileName) + '.' + pic_format)
     img = img.convert("RGBA")
     datas = img.getdata()
 
