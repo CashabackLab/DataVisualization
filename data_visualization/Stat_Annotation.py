@@ -1,5 +1,6 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import numpy as np
 
 def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_first = False, preamble = None, **kwargs):
     """
