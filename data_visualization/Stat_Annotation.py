@@ -19,11 +19,13 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
     stacked          = kwargs.get("stacked", False)
     fontweight 
     """
+    main_effect_prong = False
     
     if type(x1) in [np.ndarray, list, tuple]:
         main_effect_prong = True
-    if main_effect_prong and np.size(x1) == 1:
-        main_effect_prong = False
+        if np.size(x1) == 1:
+            main_effect_prong = False
+        
     if main_effect_prong:
         if np.shape(x1) != np.shape(x2):
             raise ValueError('Wrong Axis Shape')
