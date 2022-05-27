@@ -28,10 +28,10 @@ def boxplot(data, **kwargs):
         ax = plt.gca()
         ax.patch.set_alpha(0)
     else:
-        plt.sca(ax)
+        ax.patch.set_alpha(0)
         
     #Left Box
-    bp3 = plt.boxplot([data],   positions = [x_pos], patch_artist = True,  showfliers = False, 
+    bp3 = ax.boxplot([data],   positions = [x_pos], patch_artist = True,  showfliers = False, 
                 boxprops = box_props  , whiskerprops = whisker_props,
                 capprops = cap_props, medianprops = median_props, widths = box_width)
     
