@@ -13,7 +13,9 @@ def jitterdata(ax, left_x, right_x, left_data, right_data, noise_scale, **kwargs
     linewidth    = kwargs.get("linewidth", None) #same as lw
     lw           = kwargs.get("lw", None)        #same as linewidth
     data_color   = kwargs.get("data_color", "grey")
+    data_edge_color = kwargs.get("data_edge_color", "grey")
     mean_color   = kwargs.get("mean_color", '#727273')
+    mean_edge_color = kwargs.get("mean_edge_color", "#727273")
     circle_lw    = kwargs.get("circle_lw", 0.5)
     """
     circle_size  = kwargs.get("circle_size", 8)
@@ -22,7 +24,9 @@ def jitterdata(ax, left_x, right_x, left_data, right_data, noise_scale, **kwargs
     linewidth    = kwargs.get("linewidth", None) #same as lw
     lw           = kwargs.get("lw", None)        #same as linewidth
     data_color   = kwargs.get("data_color", "grey")
+    data_edge_color = kwargs.get("data_edge_color", "grey")
     mean_color   = kwargs.get("mean_color", '#727273')
+    mean_edge_color = kwargs.get("mean_edge_color", "#727273")
     circle_lw    = kwargs.get("circle_lw", 0.5)
 
     if linewidth == None and lw == None:
@@ -35,7 +39,7 @@ def jitterdata(ax, left_x, right_x, left_data, right_data, noise_scale, **kwargs
         noise = np.random.normal(0, noise_scale)
 
         ax.plot([left_x + noise, right_x + noise], [left_data[i], right_data[i]],
-                 lw = lw, c = data_color, alpha = circle_alpha, zorder = 0)
+                 lw = lw, c = data_edge_color, alpha = circle_alpha, zorder = 0)
 
         ax.scatter([left_x + noise, right_x + noise], [left_data[i], right_data[i]],
                     s = circle_size, zorder = 0, facecolors = 'none',
