@@ -48,7 +48,7 @@ def jitterdata(ax, left_x, right_x, left_data, right_data, noise_scale, **kwargs
     #Plot mean datapoints
     if include_mean:
         ax.plot([left_x, right_x], [np.nanmean(left_data), np.nanmean(right_data)],
-                     lw = 2*lw, c = mean_color, alpha = 1, zorder = 0)
+                     lw = 2*lw, c = mean_edge_color, alpha = 1, zorder = 0)
 
         ax.scatter([left_x , right_x], [np.nanmean(left_data), np.nanmean(right_data)],
                     s = circle_size, zorder = 0, facecolors = mean_color,
