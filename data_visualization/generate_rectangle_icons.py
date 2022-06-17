@@ -5,8 +5,7 @@ import PIL
 import numpy as np
 from .RotatingRectangle import RotatingRectangle
 
-def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide_scalar = 4, arr_width = 0.2,
-                         figsize = (2, 2), edge_color = "#727273", dim_len = 8, **kwargs):
+def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide_scalar = 4, arr_width = 0.2, figsize = (2, 2), edge_color = "#727273", dim_len = 8, **kwargs):
     """
     Returns a short rectangle target PIL Image.
     Plottable using plt.imshow()
@@ -83,7 +82,7 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide
     
     return img
   
-  def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.02, wide_scalar = 4, arr_width = 0.2,
+def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.02, wide_scalar = 4, arr_width = 0.2,
                          figsize = (2, 2), edge_color = "#727273", dim_len = 8, **kwargs):
     """
     Returns a short rectangle target PIL Image.
@@ -159,7 +158,7 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide
     
     return img
   
-  def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_width = 0.2, figsize = (2, 2),
+def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_width = 0.2, figsize = (2, 2),
                        edge_color = "#727273", dim_len = 6.3, **kwargs):
     """
     Returns a long rectangle target PIL Image.
@@ -228,13 +227,6 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide
     
     return img
   
-from matplotlib.patches import Rectangle
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import PIL
-import numpy as np
-from .RotatingRectangle import RotatingRectangle
-
 def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_width = 0.2, figsize = (2, 2),
                         edge_width = 2, edge_color = "#727273", dim_len = 6.3, **kwargs):
     """
