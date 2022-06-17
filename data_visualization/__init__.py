@@ -9,5 +9,5 @@ from .Stat_Annotation import *
 from .jitterdata import jitterdata
 from .boxplot import boxplot
 from .generate_icons import get_sight_icon, get_reward_icon
-import roth_rectangles
+from .roth_rectangles import generate_rectangle_icons
 
