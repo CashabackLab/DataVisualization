@@ -1,7 +1,4 @@
 from matplotlib.patches import Rectangle
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import PIL
 import numpy as np
 
 class RotatingRectangle(Rectangle):
