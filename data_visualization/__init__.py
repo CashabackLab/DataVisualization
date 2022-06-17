@@ -10,4 +10,4 @@ from .jitterdata import jitterdata
 from .boxplot import boxplot
 from .generate_icons import get_sight_icon, get_reward_icon
 from . import roth_rectangles
-
+from .roth_rectangles import *
