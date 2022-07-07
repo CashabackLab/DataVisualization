@@ -77,8 +77,8 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide
     fig.canvas.draw() #draws the figure to create the renderer object
     
     #convert to Image object
-    img = PIL.Image.frombytes('RGB', fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
-    plt.close() #close figure
+    img = PIL.Image.frombytes('RGBA', fig.canvas.get_width_height(),np.asarray(fig.canvas.buffer_rgba()).take([0, 1, 2, 3], axis=2).tobytes())
+    plt.close()
     
     return img
   
@@ -153,8 +153,8 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.02,
     fig.canvas.draw() #draws the figure to create the renderer object
     
     #convert to Image object
-    img = PIL.Image.frombytes('RGB', fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
-    plt.close() #close figure
+    img = PIL.Image.frombytes('RGBA', fig.canvas.get_width_height(),np.asarray(fig.canvas.buffer_rgba()).take([0, 1, 2, 3], axis=2).tobytes())
+    plt.close()
     
     return img
   
@@ -222,8 +222,8 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
     fig.canvas.draw() #draws the figure to create the renderer object
     
     #convert to Image object
-    img = PIL.Image.frombytes('RGB', fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
-    plt.close() #close figure
+    img = PIL.Image.frombytes('RGBA', fig.canvas.get_width_height(),np.asarray(fig.canvas.buffer_rgba()).take([0, 1, 2, 3], axis=2).tobytes())
+    plt.close()
     
     return img
   
@@ -290,7 +290,7 @@ def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_widt
     fig.canvas.draw() #draws the figure to create the renderer object
     
     #convert to Image object
-    img = PIL.Image.frombytes('RGB', fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
-    plt.close() #close figure
+    img = PIL.Image.frombytes('RGBA', fig.canvas.get_width_height(),np.asarray(fig.canvas.buffer_rgba()).take([0, 1, 2, 3], axis=2).tobytes())
+    plt.close()
     
     return img
