@@ -5,7 +5,8 @@ import PIL
 import numpy as np
 from .RotatingRectangle import RotatingRectangle
 
-def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide_scalar = 4, arr_width = 0.2, figsize = (2, 2), edge_color = "#727273", dim_len = 8, **kwargs):
+def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_scalar = 4, arr_width = 0.2, figsize = (2, 2), edge_color = "#727273",
+                         dim_len = 6.3, **kwargs):
     """
     Returns a short rectangle target PIL Image.
     Plottable using plt.imshow()
@@ -82,8 +83,8 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = 1.02, wide
     
     return img
   
-def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.02, wide_scalar = 4, arr_width = 0.2,
-                         figsize = (2, 2), edge_color = "#727273", dim_len = 8, **kwargs):
+def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = .7, wide_scalar = 4, arr_width = 0.2,
+                         figsize = (2, 2), edge_color = "#727273", dim_len = 6.3, **kwargs):
     """
     Returns a short rectangle target PIL Image.
     Plottable using plt.imshow()
