@@ -118,16 +118,17 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
                 
         #plot the text
         if not stacked:
-            ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color)
-            ax.text((x1+x2)*.5, y+h , p_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+            line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color)
+            text = ax.text((x1+x2)*.5, y+h , p_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
         else:
-            ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color)
+            line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color)
             
             split_text = p_text.split(", ")
             stacked_text = "\n".join(split_text)
             
-            ax.text((x1+x2)*.5, y+h , stacked_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
-    
+            text = ax.text((x1+x2)*.5, y+h , stacked_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+        return line, text
+
 def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "grey", lw = .7, fontsize = 6, exact_p = False):
     """Legacy code. Use stat_annotation for more functionality"""
     if p_val < 0.001 and not exact_p:
