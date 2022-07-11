@@ -14,11 +14,19 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
     Kwargs:
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    square_width = kwargs.get("square_width", .9)
+    square_length = kwargs.get("square_length", 2)
+    
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
     """
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
     square_width = kwargs.get("square_width", .9)
     square_length = kwargs.get("square_length", 2)
+    
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
     
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
@@ -36,7 +44,7 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
     #Make the long target
     r1 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
                             angle=45, facecolor="white", alpha=1,
-                           edgecolor = edge_color, linewidth = 2, linestyle = "--")
+                           edgecolor = edge_color, linewidth = lw, linestyle = "--")
     ax.add_patch(r1)
     hidden_center = r1.xy_center
     point_of_rotation = np.array([square_width/2, square_length/2])  # B
@@ -44,7 +52,7 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
     #make the small target
     r2 = RotatingRectangle(hidden_center, width=square_width, height=square_length, rel_point_of_rot=point_of_rotation,
                             angle=45, facecolor="white", alpha=1,
-                           edgecolor = edge_color, linewidth = 2)
+                           edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r2)
 
     coords = r1.get_patch_transform().transform(r1.get_path().vertices[:-1])
@@ -92,10 +100,16 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
     Kwargs:
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
     """
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
 
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
+    
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
     ax.set_position([0,0,1,1])
@@ -107,12 +121,11 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
 
     #make the arrow
     arr_color = color
-    edgewidth = 2
 
     #Make the Wide target
     r1 = RotatingRectangle((rect_x, rect_y), width=width*wide_scalar, height=height, rel_point_of_rot=point_of_rotation,
                             angle=45, facecolor="none", alpha=1,
-                           edgecolor = edge_color, linewidth = edgewidth, linestyle = "--")
+                           edgecolor = edge_color, linewidth = lw, linestyle = "--")
     ax.add_patch(r1)
 
     point_of_rotation = np.array([width/2, height/2])  # B
@@ -120,7 +133,7 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
     #make the Normal target
     r2 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
                             angle=45, facecolor="white", alpha=1,
-                           edgecolor = edge_color, linewidth = edgewidth)
+                           edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r2)
 
     coords = r1.get_patch_transform().transform(r1.get_path().vertices[:-1])
@@ -168,10 +181,16 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
     Kwargs:
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
+    
     """
     
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
     
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
@@ -185,7 +204,7 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
     #Make the target
     r1 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
                             angle=45, facecolor="white", alpha=1,
-                           edgecolor = edge_color, linewidth = 2)
+                           edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r1)
     coords = r1.get_patch_transform().transform(r1.get_path().vertices[:-1])
 
@@ -229,7 +248,7 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
     return img
   
 def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_width = 0.2, figsize = (2, 2),
-                        edge_width = 2, edge_color = "#727273", dim_len = 6.3, **kwargs):
+                        edge_color = "#727273", dim_len = 6.3, **kwargs):
     """
     Returns a short rectangle target PIL Image.
     Plottable using plt.imshow()
@@ -237,9 +256,16 @@ def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_widt
     Kwargs:
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
+    
     """
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    
+    linewidth = kwargs.get("linewidth", 2)
+    lw = kwargs.get("lw", linewidth)
     
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
@@ -253,7 +279,7 @@ def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_widt
     #Make the target
     r1 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
                             angle=45, facecolor="white", alpha=1,
-                           edgecolor = edge_color, linewidth = edge_width)
+                           edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r1)
     coords = r1.get_patch_transform().transform(r1.get_path().vertices[:-1])
 
