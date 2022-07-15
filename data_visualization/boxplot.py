@@ -8,7 +8,7 @@ def boxplot(data, **kwargs):
 
     color = kwargs.get("color",   "#0BB8FD")
     x_pos = kwargs.get("x_pos", 0.25)
-    ax = kwargs.get("ax", None
+    ax = kwargs.get("ax", None)
     """
     box_lw       = kwargs.get("box_lw", 1.2)
     box_width    = kwargs.get("box_width", .5)
