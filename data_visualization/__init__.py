@@ -11,3 +11,4 @@ from .boxplot import boxplot
 from .generate_icons import get_sight_icon, get_reward_icon, get_punishment_icon, get_hand_icon
 from .RotatingRectangle import *
 from .generate_rectangle_icons import *
+from .jitter_array import jitter_array
