@@ -49,6 +49,7 @@ class ColorWheel(_colorwheeldotdict):
         self.light_orange = "#FD8B0B"
         self.pink = "#E35D72"
         self.dark_grey = "#727273"
+        self.grey = "#919192"
         self.light_grey = "#B2B1B3"
         self.purple = "#984FDE"
         self.green = '#33cc33'
@@ -79,7 +80,8 @@ class ColorWheel(_colorwheeldotdict):
 
         self.bubblegum = "#FFC1CC"
         self.red = "#f63333"
-
+        self.chartreuse = "#7fff00"
+        self.light_green = "#00ff00"
         
     @property
     def num_colors(self):
