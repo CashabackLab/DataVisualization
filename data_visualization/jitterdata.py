@@ -3,6 +3,10 @@ import numpy as np
 
 def jitterdata(ax, left_x, right_x, left_data, right_data, noise_scale, **kwargs):
     """
+    #######################################################
+    LEGACY CODE. NO LONGER RECIEVES UPDATES. 
+    PLEASE USE jitter_array INSTEAD
+    #######################################################
     Plots individual connecting data with a gaussian jitter. 
     noise_scale sets the magnitude of the jitter
     
