@@ -109,6 +109,15 @@ class ColorWheel(_colorwheeldotdict):
         """
         return [self.rak_blue, self.rak_orange, self.rak_red, self.green, self.prey_blue, self.pred_red]
     
+    def in_wheel(self, inp):
+        """
+        Returns True if input is in the color wheel.
+        """
+        if inp in self.keys() or inp in self.values():
+            return True
+        
+        return False
+    
     def hex_to_rgb(self, hex_code, normalize = False):
         """
         Input: Hex String
@@ -161,6 +170,21 @@ class ColorWheel(_colorwheeldotdict):
             return rgb
         else:
             return self.rgb_to_hex(rgb)
+        
+    def blend_colors(self, color1, color2, ratio = .5):
+        """
+        Blends to given colors. Input must be hex code
+        Returns blended color in hex code
+        """
+        colorRGBA1 = self.hex_to_rgb(color1)
+        colorRGBA2 = self.hex_to_rgb(color2)
+        
+        amount = int(255 * ratio)
+        
+        red   = (colorRGBA1[0] * (255 - amount) + colorRGBA2[0] * amount) / 255
+        green = (colorRGBA1[1] * (255 - amount) + colorRGBA2[1] * amount) / 255
+        blue  = (colorRGBA1[2] * (255 - amount) + colorRGBA2[2] * amount) / 255
+        return self.rgb_to_hex((int(red), int(green), int(blue)))
 
     def _get_hsv(self, hexrgb):
         hexrgb = hexrgb[1]
@@ -258,7 +282,7 @@ class ColorWheel(_colorwheeldotdict):
         color_list.sort(key=self._get_hsv)
 
         iter_color_list = iter(color_list)
-        n_plots = len(color_list)//10
+        n_plots = len(color_list)//10 + 1
         fig, axes = plt.subplots(nrows = 1, ncols = n_plots, dpi = 300, figsize = (3 * n_plots, (7/28 * num_colors)/ n_plots))
         plt.subplots_adjust(wspace = 0)
         for j in range(n_plots):
@@ -294,6 +318,7 @@ class ColorWheel(_colorwheeldotdict):
             ax.spines.right.set_visible(False)
             ax.spines.top.set_visible(False)
             ax.set_facecolor(background)
+        plt.show()
         return ax
     
     def find_contrast_color(self, color, n = 1, hue_weight = 1, sat_weight = 1, lum_weight = 1, avoid = []):
