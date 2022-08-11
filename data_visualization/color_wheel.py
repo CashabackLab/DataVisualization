@@ -99,6 +99,10 @@ class ColorWheel(_colorwheeldotdict):
     def legacy_list(self):
         return ["pred_red", "prey_blue", "rak_blue", "rak_orange", "rak_red", "prey_blue_light", "dark_blue_hc", "plum_blue"]
     
+    @property
+    def random_color(self):
+        return np.random.choice(list(self.values()), size = 1, replace = False)
+        
     def get_random_color(self, n = 1):
         return np.random.choice(list(self.values()), size = n, replace = False)
     
