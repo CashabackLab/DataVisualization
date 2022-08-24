@@ -23,6 +23,30 @@ def blend_colors(colorRGBA1, colorRGBA2):
     blue  = (colorRGBA1[2] * (255 - 128) + colorRGBA2[2] * 128) / 255
     return (int(red), int(green), int(blue), 255)
 
+def get_open_hand_icon(color = "#000000"):
+    fileName = "Open_Hand"
+    pic_format = "png"
+    new_color = color #change this to desired color
+
+    path = __file__[:-18]
+    filepath = os.path.join(path, "images", fileName)
+    img = Image.open(filepath + '.' + pic_format)
+    img = img.convert("RGBA")
+    datas = img.getdata()
+
+    new_color = hex_to_rgb(new_color)
+
+    newData = []
+
+    for i, item in enumerate(datas):
+        if item[0] >= 245 and item[1] >= 245 and item[2] >= 245:
+            newData.append((255, 255, 255, 0))
+        else:
+            newData.append((new_color[0], new_color[1], new_color[2], 255))
+
+    img.putdata(newData)
+    return img
+
 def get_hand_icon(color, filled = False):
     if not filled: fileName = "Hand_icon"
     else: fileName = "Hand_icon_filled"
