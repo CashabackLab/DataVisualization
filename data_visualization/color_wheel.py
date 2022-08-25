@@ -39,7 +39,8 @@ class ColorWheel(_colorwheeldotdict):
         self.prey_blue_light = "#4f7598" #for black backgrounds
         self.dark_blue_hc    = "#4f7598" #for black backgrounds
         self.plum_blue       = '#881BE0'
-
+        self.seth_blue       = '#2D74B4' #for black backgrounds
+        self.seth_red        = '#FA0000' #for black backgrounds
         
         #Modern names for the same colors above 
         # hc == high contrast
