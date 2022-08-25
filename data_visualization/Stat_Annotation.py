@@ -50,10 +50,10 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
             if cles_first:
                 p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}" + f", d = {effect_size:.2f}" 
             else:
-                p_text = p_text + f", d =   {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
+                p_text = p_text + f", d = {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
                 
         elif effect_size != None and cles == None: #if only Cohen D
-            p_text = p_text + f", d =   {effect_size:.2f}" 
+            p_text = p_text + f", d = {effect_size:.2f}" 
             
         elif effect_size == None and cles != None: #if only CLES
             p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
@@ -102,10 +102,10 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
             if cles_first:
                 p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}" + f", d = {effect_size:.2f}" 
             else:
-                p_text = p_text + f", d =   {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
+                p_text = p_text + f", d = {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
                 
         elif effect_size != None and cles == None: #if only Cohen D
-            p_text = p_text + f", d =   {effect_size:.2f}" 
+            p_text = p_text + f", d = {effect_size:.2f}" 
             
         elif effect_size == None and cles != None: #if only CLES
             p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
