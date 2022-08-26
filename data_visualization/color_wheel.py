@@ -84,6 +84,9 @@ class ColorWheel(_colorwheeldotdict):
         self.chartreuse = "#7fff00"
         self.light_green = "#00ff00"
         
+        self.vibrant_red = "#FA0000"
+        self.jean_blue   = "#2D74B4"
+        
     @property
     def num_colors(self):
         return len(self.color_list)
@@ -98,7 +101,7 @@ class ColorWheel(_colorwheeldotdict):
     
     @property
     def legacy_list(self):
-        return ["pred_red", "prey_blue", "rak_blue", "rak_orange", "rak_red", "prey_blue_light", "dark_blue_hc", "plum_blue"]
+        return ["pred_red", "prey_blue", "rak_blue", "rak_orange", "rak_red", "prey_blue_light", "dark_blue_hc", "plum_blue", "seth_blue", "seth_red"]
     
     @property
     def random_color(self):
