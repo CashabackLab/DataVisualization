@@ -24,7 +24,7 @@ def blend_colors(colorRGBA1, colorRGBA2):
     return (int(red), int(green), int(blue), 255)
 
 def get_foot_icon(color = "#000000", filled = False):
-    if not filled: fileName = "Barefoot"
+    if not filled: fileName = "Barefoot_2"
     else: fileName = "Barefoot_Solid"
     pic_format = "png"
     new_color = color #change this to desired color
