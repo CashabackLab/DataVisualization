@@ -118,10 +118,10 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
                 
         #plot the text
         if not stacked:
-            line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color)
+            line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color, clip_on = False)
             text = ax.text((x1+x2)*.5, y+h , p_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
         else:
-            line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color)
+            line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color, clip_on = False)
             
             split_text = p_text.split(", ")
             stacked_text = "\n".join(split_text)
