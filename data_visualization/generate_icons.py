@@ -136,7 +136,7 @@ def get_open_hand_icon(color = "#000000"):
     newData = []
 
     for i, item in enumerate(datas):
-        if item[0] >= 245 and item[1] >= 245 and item[2] >= 245:
+        if item[0] >= 245 and item[1] >= 245 and item[2] >= 245 or item[3] < 1:
             newData.append((255, 255, 255, 0))
         else:
             newData.append((new_color[0], new_color[1], new_color[2], 255))
@@ -161,7 +161,7 @@ def get_hand_icon(color, filled = False):
     newData = []
 
     for i, item in enumerate(datas):
-        if item[0] >= 245 and item[1] >= 245 and item[2] >= 245:
+        if item[0] >= 245 and item[1] >= 245 and item[2] >= 245 or item[3] < 1:
             newData.append((255, 255, 255, 0))
         else:
             newData.append((new_color[0], new_color[1], new_color[2], 255))
