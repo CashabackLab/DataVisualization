@@ -13,4 +13,4 @@ from .RotatingRectangle import *
 from .generate_rectangle_icons import *
 from .jitter_array import jitter_array
 
-__version__ = "0.7.8"
+__version__ = "0.7.9"
