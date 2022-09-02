@@ -100,12 +100,14 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
     Kwargs:
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    remove_reward_zone = kwargs.get("remove_reward_zone", False)
     
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
     """
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
+    remove_reward_zone = kwargs.get("remove_reward_zone", False)
 
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
@@ -126,7 +128,9 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
     r1 = RotatingRectangle((rect_x, rect_y), width=width*wide_scalar, height=height, rel_point_of_rot=point_of_rotation,
                             angle=45, facecolor="none", alpha=1,
                            edgecolor = edge_color, linewidth = lw, linestyle = "--")
-    ax.add_patch(r1)
+    
+    if not remove_reward_zone:
+        ax.add_patch(r1)
 
     point_of_rotation = np.array([width/2, height/2])  # B
 
