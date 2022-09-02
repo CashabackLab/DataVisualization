@@ -1,22 +1,36 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
         
-def set_axes_color(ax, color, **kwargs):
+def set_axes_color(ax, color = "black", remove_spines = None, **kwargs):
     '''
     Change axes color and set background to transparent
     if remove_spines = True, removes right and top spine
-    
-    Kwargs
-    kwargs.setdefault("default_xticklabels", False)
-    kwargs.setdefault("leave_xticklabel_colors", False)
-    kwargs.setdefault("default_yticklabels", False)
-    kwargs.setdefault("leave_yticklabel_colors", False)
+        -remove_spines can also be a list of spines to remove 
     '''
+     
+    ax.xaxis.label.set_color(color)
+    ax.yaxis.label.set_color(color)
+    ax.title.set_color(color)
+    ax.patch.set_alpha(0)
+        
+    ax.tick_params(color = color, which = "both", labelcolor = color)
     
-    return set_Axes_Color(ax, color, **kwargs)
+    spines = ["left", "right", "top", "bottom"]
+    for spine in spines:
+        ax.spines[spine].set_color(color)
+        
+    if remove_spines == True:
+        ax.spines.right.set_visible(False)
+        ax.spines.top.set_visible(False)
+    elif type(remove_spines) == type(list()):
+        for spine in remove_spines:
+            ax.spines[spine].set_visible(False)
 
 def set_Axes_Color(ax, color, **kwargs):
     '''
+    #######LEGACY FUNCTION
+    #######Please use set_axes_color instead for better functionality
+    #######################################################
     Change axes color and set background to transparent
     if remove_spines = True, removes right and top spine
     
