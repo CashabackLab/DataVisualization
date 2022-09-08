@@ -19,6 +19,8 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
     
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
+    visible_facecolor = kwargs.get("visible_facecolor", "white")
+    hidden_facecolor = kwargs.get("hidden_facecolor", "none")
     """
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
@@ -27,6 +29,9 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
     
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
+    
+    visible_facecolor = kwargs.get("visible_facecolor", "white")
+    hidden_facecolor = kwargs.get("hidden_facecolor", "none")
     
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
@@ -43,7 +48,7 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
 
     #Make the long target
     r1 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
-                            angle=45, facecolor="white", alpha=1,
+                            angle=45, facecolor=hidden_facecolor, alpha=1,
                            edgecolor = edge_color, linewidth = lw, linestyle = "--")
     ax.add_patch(r1)
     hidden_center = r1.xy_center
@@ -51,7 +56,7 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
 
     #make the small target
     r2 = RotatingRectangle(hidden_center, width=square_width, height=square_length, rel_point_of_rot=point_of_rotation,
-                            angle=45, facecolor="white", alpha=1,
+                            angle=45, facecolor=visible_facecolor, alpha=1,
                            edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r2)
 
@@ -104,6 +109,8 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
     
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
+    visible_facecolor = kwargs.get("visible_facecolor", "white")
+    hidden_facecolor = kwargs.get("hidden_facecolor", "none")
     """
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
@@ -111,6 +118,9 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
 
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
+    
+    visible_facecolor = kwargs.get("visible_facecolor", "white")
+    hidden_facecolor = kwargs.get("hidden_facecolor", "none")
     
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
@@ -126,7 +136,7 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
 
     #Make the Wide target
     r1 = RotatingRectangle((rect_x, rect_y), width=width*wide_scalar, height=height, rel_point_of_rot=point_of_rotation,
-                            angle=45, facecolor="none", alpha=1,
+                            angle=45, facecolor=hidden_facecolor, alpha=1,
                            edgecolor = edge_color, linewidth = lw, linestyle = "--")
     
     if not remove_reward_zone:
@@ -136,7 +146,7 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
 
     #make the Normal target
     r2 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
-                            angle=45, facecolor="white", alpha=1,
+                            angle=45, facecolor=visible_facecolor, alpha=1,
                            edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r2)
 
@@ -188,6 +198,7 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
     
+    visible_facecolor = kwargs.get("visible_facecolor", "white")    
     """
     
     rect_x = kwargs.get("rect_x", 0)
@@ -195,7 +206,8 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
     
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
-    
+    visible_facecolor = kwargs.get("visible_facecolor", "white")
+
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
     ax.set_position([0,0,1,1])
@@ -207,7 +219,7 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
 
     #Make the target
     r1 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
-                            angle=45, facecolor="white", alpha=1,
+                            angle=45, facecolor=visible_facecolor, alpha=1,
                            edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r1)
     coords = r1.get_patch_transform().transform(r1.get_path().vertices[:-1])
@@ -264,13 +276,16 @@ def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_widt
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
     
+    visible_facecolor = kwargs.get("visible_facecolor", "white")
+    
     """
     rect_x = kwargs.get("rect_x", 0)
     rect_y = kwargs.get("rect_y", -1)
     
     linewidth = kwargs.get("linewidth", 2)
     lw = kwargs.get("lw", linewidth)
-    
+    visible_facecolor = kwargs.get("visible_facecolor", "white")
+
     fig, ax = plt.subplots(figsize = figsize, dpi = 300)
     ax.set_aspect('equal')
     ax.set_position([0,0,1,1])
@@ -282,7 +297,7 @@ def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_widt
 
     #Make the target
     r1 = RotatingRectangle((rect_x, rect_y), width=width, height=height, rel_point_of_rot=point_of_rotation,
-                            angle=45, facecolor="white", alpha=1,
+                            angle=45, facecolor=visible_facecolor, alpha=1,
                            edgecolor = edge_color, linewidth = lw)
     ax.add_patch(r1)
     coords = r1.get_patch_transform().transform(r1.get_path().vertices[:-1])
