@@ -2,6 +2,45 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+def custom_legend(ax, labels: "List[String]", colors : "List of color names", ncol = 1,
+                 fontsize = 6, linewidth = 4, framealpha = 0, loc = "best", fontweight = "bold",
+                 columnspacing = 0, **kwargs):
+    """
+    Creates Custom colored legend
+
+    Parameters
+    ----------
+    ax : MPL Ax Object
+    labels : "List[Strings]"
+    colors : "List of color names"
+    ncol : TYPE, optional
+    The default is 1.
+    fontsize : TYPE, optional
+     The default is 6.
+    linewidth : TYPE, optional
+     The default is 4.
+    framealpha : TYPE, optional
+    The default is 0.
+    loc : TYPE, optional
+    The default is "best".
+    fontweight : TYPE, optional
+    The default is "bold".
+    columnspacing : TYPE, optional
+     The default is 0.
+    **kwargs: Additional keyword arguents to be passed to pyplot.legend()
+
+    Returns
+    -------
+    leg : Matplotlib Legend Object
+    DESCRIPTION.
+
+    """
+    #Alias for Custom_Legend
+    return_val = Custom_Legend(ax, labels, colors , ncol = ncol, fontsize = fontsize, \
+                           linewidth = linewidth, framealpha = framealpha, loc = loc, \
+                           fontweight = fontweight, columnspacing = columnspacing, **kwargs)
+    return return_val
+  
 def customlegend(ax, labels: "List[String]", colors : "List of color names", ncol = 1,
                  fontsize = 6, linewidth = 4, framealpha = 0, loc = "best", fontweight = "bold",
                  columnspacing = 0, **kwargs):
