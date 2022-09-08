@@ -33,7 +33,7 @@ def get_hidden_rectangle(color, arrow_direction, height = 12, width = .7, wide_s
     visible_facecolor = kwargs.get("visible_facecolor", "white")
     hidden_facecolor = kwargs.get("hidden_facecolor", "none")
     
-    fig, ax = plt.subplots(figsize = figsize, dpi = 300)
+    fig, ax = plt.subplots(figsize = figsize, dpi = 300, facecolor = "none")
     ax.set_aspect('equal')
     ax.set_position([0,0,1,1])
 
@@ -122,7 +122,7 @@ def get_hidden_wide_rectangle(color, arrow_direction, height = 12, width = 1.04,
     visible_facecolor = kwargs.get("visible_facecolor", "white")
     hidden_facecolor = kwargs.get("hidden_facecolor", "none")
     
-    fig, ax = plt.subplots(figsize = figsize, dpi = 300)
+    fig, ax = plt.subplots(figsize = figsize, dpi = 300, facecolor = "none")
     ax.set_aspect('equal')
     ax.set_position([0,0,1,1])
 
@@ -208,7 +208,7 @@ def get_long_rectangle(color, arrow_direction, height = 12, width = 0.7, arr_wid
     lw = kwargs.get("lw", linewidth)
     visible_facecolor = kwargs.get("visible_facecolor", "white")
 
-    fig, ax = plt.subplots(figsize = figsize, dpi = 300)
+    fig, ax = plt.subplots(figsize = figsize, dpi = 300, facecolor = "none")
     ax.set_aspect('equal')
     ax.set_position([0,0,1,1])
 
@@ -286,7 +286,7 @@ def get_short_rectangle(color, arrow_direction, height = 2, width = .9, arr_widt
     lw = kwargs.get("lw", linewidth)
     visible_facecolor = kwargs.get("visible_facecolor", "white")
 
-    fig, ax = plt.subplots(figsize = figsize, dpi = 300)
+    fig, ax = plt.subplots(figsize = figsize, dpi = 300, facecolor = "none")
     ax.set_aspect('equal')
     ax.set_position([0,0,1,1])
 
