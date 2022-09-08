@@ -12,6 +12,8 @@ def set_axes_color(ax, color = "black", remove_spines = None, **kwargs):
     ax.yaxis.label.set_color(color)
     ax.title.set_color(color)
     ax.patch.set_alpha(0)
+    fig = ax.get_figure()
+    fig.patch.set_alpha(0)
         
     ax.tick_params(color = color, which = "both", labelcolor = color)
     
