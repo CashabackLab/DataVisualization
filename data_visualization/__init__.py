@@ -8,10 +8,14 @@ from .Pair_Plot import *
 from .Stat_Annotation import *
 from .jitterdata import jitterdata
 from .boxplot import boxplot
+
 from .generate_icons import get_sight_icon, get_reward_icon, get_punishment_icon, get_hand_icon, get_open_hand_icon, get_foot_icon, get_walking_icon
 from .generate_icons import get_elderly_icon, get_healthy_icon
+
 from .RotatingRectangle import *
 from .generate_rectangle_icons import *
-from .jitter_array import jitter_array
 
-__version__ = "0.7.17"
+from .jitter_array import jitter_array
+from .transparent_plot import transparent_plot
+
+__version__ = "0.7.18"
