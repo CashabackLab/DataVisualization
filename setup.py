@@ -12,7 +12,7 @@ setup(
     # Needed for dependencies
     install_requires=['numpy', 'matplotlib >= 3.5.0', 'pillow'],
     # *strongly* suggested for sharing
-    version='0.7.18',
+    version='0.7.19',
     # The license can be anything you like
     license='MIT',
     description='Python package for visualizing human kinematic data and analytical results, tailored for the Cashaback Lab',
