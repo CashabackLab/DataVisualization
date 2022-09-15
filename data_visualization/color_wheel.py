@@ -2,10 +2,10 @@ import matplotlib.colors as mc
 import colorsys
 import matplotlib.pyplot as plt        
 import numpy as np
+from matplotlib.colors import LinearSegmentedColormap
 
 class _colorwheeldotdict(dict):
     """dot.notation access to dictionary attributes"""
-#     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
     
@@ -86,7 +86,8 @@ class ColorWheel(_colorwheeldotdict):
         
         self.vibrant_red = "#FA0000"
         self.jean_blue   = "#2D74B4"
-        
+        self.matcha = "#C3D4A5"
+
     @property
     def num_colors(self):
         return len(self.color_list)
@@ -329,21 +330,22 @@ class ColorWheel(_colorwheeldotdict):
         plt.show()
         return ax
     
-    def find_contrast_color(self, color, n = 1, hue_weight = 1, sat_weight = 1, lum_weight = 1, avoid = []):
+    def find_contrast_color(self, og_color, n = 1, hue_weight = 1, sat_weight = 1, lum_weight = 1, avoid = [], demo = False):
         """
         Find the top n contrasting colors in the color wheel.
         Parameters:
             n: number of colors to return
-            X_weight: adjust weighting of hue, luminince, or saturation. 
+            XX_weight: adjust weighting of hue (hue_weight), luminance (lum_weight), or saturation (sat_weight). 
             avoid: list of ColorWheel colors to avoid using
+            demo: display contrasting colors and their names
         Returns:
             list of top n contrasting colors
         """
-        curr_hls = colorsys.rgb_to_hls(*mc.to_rgb(color))
+        curr_hls = colorsys.rgb_to_hls(*mc.to_rgb(og_color))
 
         contrast_array = []
         for color in self.keys():
-            if color in self.legacy_list or color in ["white", "black", "dark_grey", "light_grey"] or self[color] in avoid:
+            if color in self.legacy_list or color in ["white", "black", "dark_grey", "light_grey", "grey"] or self[color] in avoid:
                 continue
             else:
                 new_hls = colorsys.rgb_to_hls(*mc.to_rgb(self[color]))
@@ -359,7 +361,94 @@ class ColorWheel(_colorwheeldotdict):
         contrast_array.sort(key = lambda x: -x[1])
         return_array = [contrast_array[i][0] for i in range(n)]
         
+        if demo:
+            x = return_array
+            plt.figure(dpi = 300, figsize = (4,3))
+            for i in range(len(x)):
+                plt.bar(1, i+1, color = x[-(i+1)], zorder = -i, width = 1)
+                plt.text(1, i+.5, self._get_name(x[-(i+1)]), ha = "center", va = "center", color = "white")
+                plt.axhline(i+1, color = wheel.black)
+            plt.bar(0, i+1, color = og_color, width = 1)
+            plt.ylim(0, i+1)
+            plt.xlim(-.5, 1.5)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title(f"Contrasting {self._get_name(og_color)}")
         return return_array
+    
+    def luminance_gradient(self, color, n = 5, allow_darker = False, demo = False):
+        """
+        Returns luminant gradient of given color.
+        n: number of colors to generate
+        allow_darker: allows gradient to go darker than the given color
+        """
+        if color in self.color_list:
+            hex_color = self[color]
+        elif type(color) == str and color[0] == "#":
+            hex_color = color
+        else:
+            raise ValueError(f"Invalid Color Input: {color}. Input must be hex code or a color name in the color wheel.")
+            
+        if allow_darker:
+            luminance_list = [self.lighten_color(hex_color, amount = (x+1)/int(n/2+1)) for x in range(n) ]
+        else:
+            luminance_list = [self.lighten_color(hex_color, amount = (x+1)/int(n+1)) for x in range(n) ]
+        if demo:
+            x = luminance_list
+            plt.figure(dpi = 300, figsize = (3,3))
+            for i in range(len(x)):
+                plt.bar(1, i+1, color = x[i], zorder = -i, width = 1)
+                plt.text(1, i+.5, f"{i}", ha = "center", va = "center", color = "black")
+                plt.axhline(i+1, color = wheel.black)
+            plt.ylim(0, i+1)
+            plt.xlim(.5, 1.5)
+            plt.xticks([])
+            plt.yticks([])
+            plt.title(f"Luminance Gradient for {self._get_name(hex_color)}")
+            
+        return luminance_list
+    
+    def create_cmap(self, color_list, demo = False):
+        """
+        Creates a matplotlib cmap from given color list.
+        """
+        all_names = 1
+        all_hex = 1
+
+        for c in color_list:
+            if c not in self.color_list:
+                all_names = 0
+                break
+
+        for c in color_list:
+            if type(c) == str and c[0] != "#":
+                all_hex = 0
+                break
+
+        if not all_names and not all_hex:
+            raise ValueError("Input list does not contain valid color names or hex codes.")
+
+        if all_names:
+            cmap_colors = [self.hex_to_rgb(wheel[x], normalize = True) for x in color_list]
+        elif all_hex:
+            cmap_colors = [self.hex_to_rgb(x, normalize = True) for x in color_list]
+
+        cm = LinearSegmentedColormap.from_list(
+                "Custom", cmap_colors, N=100)
+        if demo:
+            mat = np.indices((100,100))[1]
+            plt.imshow(mat, cmap=cm)
+
+        return cm
+    
+    def _get_name(self, hexcode):
+        for x in self.keys():
+            if hexcode == self[x] and x not in self.legacy_list:
+                return x
+            
+    def __str__(self):
+        self.demo_colors()
+        return ""
     
     def _get_hsv(self, hexrgb):
         hexrgb = hexrgb[1]
