@@ -113,7 +113,7 @@ class ColorWheel(_colorwheeldotdict):
     def random_color(self):
         return np.random.choice(list(self.values()), size = 1, replace = False)
         
-    @proprty
+    @property
     def none(self):
         return "none"
     
