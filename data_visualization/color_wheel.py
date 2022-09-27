@@ -63,7 +63,6 @@ class ColorWheel(_colorwheeldotdict):
         self.faded_orange = '#FFC859'
         self.burnt_orange = '#F76700'
         self.blue = '#2C19D4'
-        self.lavender = '#8375FF'
         self.plum = '#881BE0'
         self.sunburst_orange = "#F76700"
         self.burnt_orange = "#CC5500"
@@ -88,6 +87,12 @@ class ColorWheel(_colorwheeldotdict):
         self.jean_blue   = "#2D74B4"
         self.matcha = "#C3D4A5"
 
+        self.lavender = "#c195eb" 
+        self.dark_periwinkle = '#8375FF'
+        self.periwinkle = "#CCCCFF"
+        self.scarlet = "#FF2400"
+        self.sunflower = "#FFDA03"
+        
     @property
     def num_colors(self):
         return len(self.color_list)
