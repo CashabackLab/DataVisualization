@@ -1,4 +1,12 @@
 from setuptools import setup
+import re
+import ast
+
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
+
+with open('app_name/__init__.py', 'rb') as f:
+    version = str(ast.literal_eval(_version_re.search(
+        f.read().decode('utf-8')).group(1)))
 
 setup(
     # Needed to silence warnings 
@@ -12,7 +20,7 @@ setup(
     # Needed for dependencies
     install_requires=['numpy', 'matplotlib >= 3.5.0', 'pillow'],
     # *strongly* suggested for sharing
-    version='0.8.3',
+    version=version,
     # The license can be anything you like
     license='MIT',
     description='Python package for visualizing human kinematic data and analytical results, tailored for the Cashaback Lab',
