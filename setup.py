@@ -2,6 +2,7 @@ from setuptools import setup
 import re
 import ast
 
+#Only change __version__ in data_visualization/__init__.py file
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
 with open('app_name/__init__.py', 'rb') as f:
