@@ -5,7 +5,7 @@ import ast
 #Only change __version__ in data_visualization/__init__.py file
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
-with open('app_name/__init__.py', 'rb') as f:
+with open('data_visualization/__init__.py', 'rb') as f:
     version = str(ast.literal_eval(_version_re.search(
         f.read().decode('utf-8')).group(1)))
 
