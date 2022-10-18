@@ -300,11 +300,14 @@ class ColorWheel(_colorwheeldotdict):
         color_list.sort(key=self._get_hsv)
 
         iter_color_list = iter(color_list)
-        n_plots = len(color_list)//10 + 1
+        if self.num_colors % 10 == 0:
+            n_plots = self.num_colors // 10 
+        else:
+            n_plots = self.num_colors //10 + 1
+            
         fig, axes = plt.subplots(nrows = 1, ncols = n_plots, dpi = 300, figsize = (3 * n_plots, (7/28 * num_colors)/ n_plots))
         plt.subplots_adjust(wspace = 0)
         for j in range(n_plots):
-            print(j)
             ax = axes[j]
 
             ax.set_ylim(0, 10*1.3 +1)
