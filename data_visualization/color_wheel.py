@@ -154,14 +154,17 @@ class ColorWheel(_colorwheeldotdict):
         Input: rgb tuple, ex: (.2, .8, .2) or (40, 185, 40)
         Output: Hex Representation of color
         """
-        if rgb[0] < 1 or rgb[1] < 1 or rgb[2] < 1:
+        bool_test = [type(x) == int for x in rgb]
+        rgb = [max(x, 0) for x in rgb]
+        
+        if False in bool_test:
             int_rgb = (rgb[0] * 255, rgb[1] * 255, rgb[2] * 255)
             int_rgb = [int(x) for x in int_rgb]
-            int_rgb = tuple(int_rgb)
         else:
-            int_rgb = rgb
+            int_rgb = [int(x) for x in rgb]
             
-        return '#%02x%02x%02x' % int_rgb
+        
+        return '#%02x%02x%02x' % tuple(int_rgb)
     
     def lighten_color(self, color, amount = 1, return_rgb = False):
         """
