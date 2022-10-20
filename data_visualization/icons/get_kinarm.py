@@ -25,6 +25,7 @@ def get_kinarm(color = "light", robot = "endpoint", cropped = False, cropped_wid
     img = img.convert("RGBA")
     ax_img = ax.imshow(img)
         
+    data = np.array(img)
     if cropped:
         ax.set_xlim(cropped_width[0] * data.shape[1], data.shape[1] * (1-cropped_width[1]))
     
