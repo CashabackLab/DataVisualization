@@ -16,10 +16,12 @@ def get_kinarm(color = "light", robot = "endpoint", cropped = False, cropped_wid
     
     fig.patch.set_color("none")
     ax.patch.set_color("none")
-    path = "Images"
+    
+    os.chdir("..")
+    cwd = os.getcwd()
     filename = f"{robot}_{color}.png"
     
-    img = Image.open(os.path.join(path, filename))
+    img = Image.open(os.path.join(cwd, "Images", filename))
     img = img.convert("RGBA")
     ax_img = ax.imshow(img)
     
@@ -31,16 +33,11 @@ def get_kinarm(color = "light", robot = "endpoint", cropped = False, cropped_wid
     ax.axis("off")
     
     fig.canvas.draw() #draws the figure to create the renderer object
+    
     #convert to Image object
-
     img = PIL.Image.frombytes('RGBA',
                               fig.canvas.get_width_height(),
                               np.asarray(fig.canvas.buffer_rgba()).take([0, 1, 2, 3], axis=2).tobytes())
 
     plt.close()
-#     print(np.asarray(fig.canvas.buffer_rgba()))
-#     print(img.info)
-
-#     renderer = fig.
-#     img = ax_img.make_img(renderer)
     return img
