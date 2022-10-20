@@ -17,10 +17,10 @@ def get_kinarm(color = "light", robot = "endpoint", cropped = False, cropped_wid
     fig.patch.set_color("none")
     ax.patch.set_color("none")
     
-    head, tail = os.path.split(__file__)
+    head, tail = os.path.split(os.path.abspath(__file__))
     filename = f"{robot}_{color}.png"
     
-    img = Image.open(os.path.join(head, "Images", filename))
+    img = Image.open(os.path.join(head, "images", filename))
     img = img.convert("RGBA")
     ax_img = ax.imshow(img)
     
