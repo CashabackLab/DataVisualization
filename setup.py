@@ -17,7 +17,7 @@ setup(
     author='CashabackLab',
     author_email='cashabacklab@gmail.com',
     # Needed to actually package something
-    packages=['data_visualization', 'icons'],
+    packages=['data_visualization', 'data_visualization.icons'],
     # Needed for dependencies
     install_requires=['numpy', 'matplotlib >= 3.5.0', 'pillow'],
     # *strongly* suggested for sharing
