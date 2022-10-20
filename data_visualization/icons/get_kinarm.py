@@ -5,8 +5,8 @@ import PIL
 import numpy as np
 
 def get_kinarm(color = "light", robot = "endpoint", cropped_width = (0, 0), cropped_height = (0, 0)):
-     """
-    returns kinarm exo or endpoint image
+    """
+    Returns kinarm exo or endpoint image
     color : {"light", "dark"}
     robot : {"exo", "endpoint"}
     cropped_width : tuple of percentages to crop image width
