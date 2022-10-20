@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import os 
 from PIL import Image
 import PIL
+import numpy as np
 
 def get_kinarm(color = "light", robot = "endpoint", cropped = False, cropped_width = (.15, .1)):
     
