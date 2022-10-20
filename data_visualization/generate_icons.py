@@ -144,7 +144,7 @@ def get_open_hand_icon(color = "#000000"):
     img.putdata(newData)
     return img
 
-def get_hand_icon(color, filled = False):
+def get_hand_icon(color = "#000000", filled = False):
     if not filled: fileName = "Hand_icon"
     else: fileName = "Hand_icon_filled"
     pic_format = "png"
@@ -169,7 +169,7 @@ def get_hand_icon(color, filled = False):
     img.putdata(newData)
     return img
 
-def get_sight_icon(color):
+def get_sight_icon(color = "#000000"):
     """
     Returns a Sight icon image in the given color.
     Color must be in Hex Code
@@ -198,7 +198,7 @@ def get_sight_icon(color):
     img.putdata(newData)
     return img
 
-def get_reward_icon(color):
+def get_reward_icon(color = "#000000"):
     """
     Returns a Reward Sound Icon in the given color.
     Color must be in hex code.
@@ -229,7 +229,7 @@ def get_reward_icon(color):
     img.putdata(newData)
     return img
 
-def get_punishment_icon(color):
+def get_punishment_icon(color = "#000000"):
     """
     Returns a Punishment Sound Icon in the given color.
     Color must be in hex code.
