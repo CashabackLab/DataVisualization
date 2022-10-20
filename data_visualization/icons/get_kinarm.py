@@ -4,8 +4,17 @@ from PIL import Image
 import PIL
 import numpy as np
 
-def get_kinarm(color = "light", robot = "endpoint", cropped = False, cropped_width = (.15, .1)):
-    
+def get_kinarm(color = "light", robot = "endpoint", cropped_width = (0, 0), cropped_height = (0, 0)):
+     """
+    returns kinarm exo or endpoint image
+    color : {"light", "dark"}
+    robot : {"exo", "endpoint"}
+    cropped_width : tuple of percentages to crop image width
+        ex: (.15, .1) removes 15% from left and 10% from right (recommended)
+    cropped_height : tuple of percentages to crop image height
+        ex: (0, .2) removes 0% from bottom and 20% from top (recommended)
+    """
+        
     if color not in ["light", "dark"]:
         raise ValueError("Color must be either light or dark.")
     if robot not in ["exo", "endpoint"]:
@@ -26,8 +35,8 @@ def get_kinarm(color = "light", robot = "endpoint", cropped = False, cropped_wid
     ax_img = ax.imshow(img)
         
     data = np.array(img)
-    if cropped:
-        ax.set_xlim(cropped_width[0] * data.shape[1], data.shape[1] * (1-cropped_width[1]))
+    ax.set_xlim(cropped_width[0] * data.shape[1], data.shape[1] * (1-cropped_width[1]))
+    ax.set_ylim(data.shape[0] * (1-cropped_height[0]), cropped_height[1] * data.shape[0])
     
     ax.axis("off")
     
