@@ -18,6 +18,4 @@ from .generate_rectangle_icons import *
 from .jitter_array import jitter_array
 from .set_transparent import set_transparent
 
-import .icons
-
-__version__ = "0.8.9"
+__version__ = "0.8.10"
