@@ -20,4 +20,4 @@ from .set_transparent import set_transparent
 
 import data_visualization.icons 
 
-__version__ = "0.8.16"
+__version__ = "0.8.17"
