@@ -21,7 +21,7 @@ from .set_transparent import set_transparent
 import data_visualization.icons 
 
 import matplotlib as mpl
-mpl.rcParams["axes.facecolor"]   = wheel.none
-mpl.rcParams["figure.facecolor"] = wheel.none
+mpl.rcParams["axes.facecolor"]   = "none"
+mpl.rcParams["figure.facecolor"] = "none"
 
 __version__ = "0.8.18"
