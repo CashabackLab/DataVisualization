@@ -4,6 +4,7 @@ from .Create_GIF import *
 from .set_Axes_Color import *
 from .plot_inset_image import *
 from .Custom_Legend import *
+from .legend import legend
 from .Pair_Plot import *
 from .Stat_Annotation import *
 from .jitterdata import jitterdata
@@ -24,4 +25,4 @@ import matplotlib as mpl
 mpl.rcParams["axes.facecolor"]   = "none"
 mpl.rcParams["figure.facecolor"] = "none"
 
-__version__ = "0.8.20"
+__version__ = "0.8.21"
