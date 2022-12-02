@@ -1,3 +1,5 @@
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 def legend(ax, labels, colors, ncol = 1,
