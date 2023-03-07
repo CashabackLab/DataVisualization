@@ -385,7 +385,7 @@ class ColorWheel(_colorwheeldotdict):
             for i in range(len(x)):
                 plt.bar(1, i+1, color = x[-(i+1)], zorder = -i, width = 1)
                 plt.text(1, i+.5, self._get_name(x[-(i+1)]), ha = "center", va = "center", color = "white")
-                plt.axhline(i+1, color = wheel.black)
+                plt.axhline(i+1, color = self.black)
             plt.bar(0, i+1, color = og_color, width = 1)
             plt.ylim(0, i+1)
             plt.xlim(-.5, 1.5)
@@ -417,7 +417,7 @@ class ColorWheel(_colorwheeldotdict):
             for i in range(len(x)):
                 plt.bar(1, i+1, color = x[i], zorder = -i, width = 1)
                 plt.text(1, i+.5, f"{i}", ha = "center", va = "center", color = "black")
-                plt.axhline(i+1, color = wheel.black)
+                plt.axhline(i+1, color = self.black)
             plt.ylim(0, i+1)
             plt.xlim(.5, 1.5)
             plt.xticks([])
@@ -447,7 +447,7 @@ class ColorWheel(_colorwheeldotdict):
             raise ValueError("Input list does not contain valid color names or hex codes.")
 
         if all_names:
-            cmap_colors = [self.hex_to_rgb(wheel[x], normalize = True) for x in color_list]
+            cmap_colors = [self.hex_to_rgb(self[x], normalize = True) for x in color_list]
         elif all_hex:
             cmap_colors = [self.hex_to_rgb(x, normalize = True) for x in color_list]
 
