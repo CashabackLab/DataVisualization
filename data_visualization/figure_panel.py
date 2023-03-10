@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def figure_panel(figsize, inset_dimensions = None, dpi = 300):
+def figure_panel(figsize = (6, 3), inset_dimensions = None, dpi = 300):
     """
     Generates figure panel to plot on.
     Figsize is in inches (width, height)
