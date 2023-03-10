@@ -23,6 +23,6 @@ def figure_panel(figsize = (6, 3), inset_dimensions = None, dpi = 300):
     ax = axmain.inset_axes(inset_dimensions, transform=axmain.transData)
 
     ax.patch.set_alpha(0)
-    ax.set_ylim(0, figsize[1])
-    ax.set_xlim(0, figsize[0])
+    ax.set_ylim(0, inset_dimensions[3])
+    ax.set_xlim(0, inset_dimensions[2])
     return axmain, ax
