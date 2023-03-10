@@ -18,6 +18,7 @@ from .generate_rectangle_icons import *
 
 from .jitter_array import jitter_array
 from .set_transparent import set_transparent
+from .figure_panel import figure_panel
 
 import data_visualization.icons 
 
