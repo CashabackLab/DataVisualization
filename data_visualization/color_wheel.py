@@ -41,6 +41,7 @@ class ColorWheel(_colorwheeldotdict):
         self.plum_blue       = '#881BE0'
         self.seth_blue       = '#2D74B4' #for black backgrounds
         self.seth_red        = '#FA0000' #for black backgrounds
+        self.adam_blue       = '#2C19D4' #more purple than blue
         
         #Modern names for the same colors above 
         # hc == high contrast
@@ -61,7 +62,7 @@ class ColorWheel(_colorwheeldotdict):
         self.white  = "#FFFFFF"
         self.orange = '#E89D07'
         self.faded_orange = '#FFC859'
-        self.blue = '#2C19D4'
+        self.blue = '#4169E1'
         self.plum = '#881BE0'
         self.sunburst_orange = "#F76700"
         self.burnt_orange = "#CC5500"
@@ -92,6 +93,9 @@ class ColorWheel(_colorwheeldotdict):
         self.scarlet = "#FF2400"
         self.sunflower = "#FFDA03"
         
+        self.wine = "#B31E6F"
+        self.peach = "#EE5A5A"
+        
     @property
     def num_colors(self):
         return len(self.color_list)
@@ -106,7 +110,10 @@ class ColorWheel(_colorwheeldotdict):
     
     @property
     def legacy_list(self):
-        return ["pred_red", "prey_blue", "rak_blue", "rak_orange", "rak_red", "prey_blue_light", "dark_blue_hc", "plum_blue", "seth_blue", "seth_red"]
+        return ["pred_red", "prey_blue",
+                "rak_blue", "rak_orange", "rak_red",
+                "prey_blue_light", "dark_blue_hc", "plum_blue",
+                "seth_blue", "seth_red", "adam_blue]
     
     @property
     def random_color(self):
