@@ -1,6 +1,7 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np 
+import warnings 
 
 def boxplot(*args, **kwargs):
 
