@@ -276,7 +276,7 @@ class ColorWheel(_colorwheeldotdict):
             for i in range(len(x)):
                 plt.bar(1, i+1, color = x[-(i+1)], zorder = -i, width = 1)
                 plt.text(1, i+.5, self._get_name(x[-(i+1)]), ha = "center", va = "center", color = "white")
-                plt.axhline(i+1, color = wheel.black)
+                plt.axhline(i+1, color = self.black)
             plt.bar(0, i+1, color = og_color, width = 1)
             plt.ylim(0, i+1)
             plt.xlim(-.5, 1.5)
@@ -308,7 +308,7 @@ class ColorWheel(_colorwheeldotdict):
             for i in range(len(x)):
                 plt.bar(1, i+1, color = x[i], zorder = -i, width = 1)
                 plt.text(1, i+.5, f"{i}", ha = "center", va = "center", color = "black")
-                plt.axhline(i+1, color = wheel.black)
+                plt.axhline(i+1, color = self.black)
             plt.ylim(0, i+1)
             plt.xlim(.5, 1.5)
             plt.xticks([])
