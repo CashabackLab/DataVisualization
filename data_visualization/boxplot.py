@@ -121,7 +121,7 @@ def new_boxplot(ax, x, data, jitter_data = False, **kwargs):
     #Make Box
     bp = ax.boxplot([filtered_data],   positions = [x], patch_artist = True,  showfliers = False, 
                 boxprops = box_props  , whiskerprops = whisker_props,
-                capprops = cap_props, medianprops = median_props, widths = box_width)
+                capprops = cap_props, medianprops = median_props, widths = box_width, clip_on = False)
     
     #Add jittered data
     if jitter_data:
