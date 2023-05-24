@@ -121,7 +121,7 @@ def new_boxplot(ax, x, data, jitter_data = False, **kwargs):
     #Make Box
     bp = ax.boxplot([filtered_data],   positions = [x], patch_artist = True,  showfliers = False, 
                 boxprops = box_props  , whiskerprops = whisker_props,
-                capprops = cap_props, medianprops = median_props, widths = box_width, clip_on = False)
+                capprops = cap_props, medianprops = median_props, widths = box_width)
     
     #Add jittered data
     if jitter_data:
@@ -143,12 +143,12 @@ def new_boxplot(ax, x, data, jitter_data = False, **kwargs):
         
         ax.scatter(x + noise, filtered_data,
                 s = data_size, facecolors = 'none',
-               edgecolors=data_color, alpha = data_alpha, lw = data_lw, zorder = data_zorder)
+               edgecolors=data_color, alpha = data_alpha, lw = data_lw, zorder = data_zorder, clip_on = False)
             
         if include_mean:
             ax.scatter(x, np.nanmean(filtered_data) ,
                         s = data_size, facecolors = mean_color,
-                       edgecolors=mean_color, alpha = mean_alpha, lw = data_lw, zorder = mean_zorder)
+                       edgecolors=mean_color, alpha = mean_alpha, lw = data_lw, zorder = mean_zorder, clip_on = False)
         
     return ax
 
