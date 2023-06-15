@@ -167,7 +167,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
                 ax[row, col].set_ylim(ymin_val, ymax_val)
 
     ###############################################################################################################
-    #Set labels and ticks
+   #Set labels and ticks
     for row in range(num_params):
         for col in range(num_params):
 
@@ -178,9 +178,9 @@ def Pair_Plot(parameter_array, labels, **kwargs):
                 y_lims = ax[row, row].get_xlim()
                 ax[row, col].set_ylim(y_lims)
                 #setting yticklabels to 20% and 80% of limits
-                ax[row, col].set_yticks([y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]), y_lims[0] + .8*abs(y_lims[1] - y_lims[0])], fontsize = tick_size, fontcolor = "k")
+                ax[row, col].set_yticks([y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]), y_lims[0] + .8*abs(y_lims[1] - y_lims[0])])
                 ax[row, col].set_yticklabels([f"{y_lims[0] + .2 * abs(y_lims[1] - y_lims[0]):.3f}", f"{y_lims[0] + .8*abs(y_lims[1] - y_lims[0]):.3f}"], fontdict = fontdict)
-  
+                ax[row, col].tick_params(labelsize = tick_size, color = "k")
             else:
                 ax[row, col].set_yticks([])
 
@@ -190,7 +190,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
 
                 x_lims = ax[row, col].get_xlim()
 
-                ax[row, col].set_xticks([x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]), x_lims[0] + .8*abs(x_lims[1] - x_lims[0])], size = tick_size, fontcolor = "k")
+                ax[row, col].set_xticks([x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]), x_lims[0] + .8*abs(x_lims[1] - x_lims[0])])
                 ax[row, col].set_xticklabels([f"{x_lims[0] + .2 * abs(x_lims[1] - x_lims[0]):.3f}", f"{x_lims[0] + .8*abs(x_lims[1] - x_lims[0]):.3f}"], fontdict = fontdict)
 
             else:
