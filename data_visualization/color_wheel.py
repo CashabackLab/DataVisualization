@@ -429,7 +429,7 @@ class ColorWheel(_colorwheeldotdict):
         ax.set_facecolor(background)
         return ax
     
-    def _demo_colors_spyder(self, background = "white", no_legacy = True, fontname = "Dejavu Sans"):
+    def _demo_colors_spyder(self, background = "white", selection = "all", no_legacy = True, fontname = "Dejavu Sans"):
         """
         Shows a plot demo for the available colors.
         Change background to look at colors with different backgrounds
