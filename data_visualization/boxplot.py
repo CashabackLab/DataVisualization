@@ -50,7 +50,7 @@ def boxplot(*args, **kwargs):
         warnings.warn("You are currently using the old implementation of \"boxplot\".\n\tPlease use the new function signature: boxplot(ax, x, data, jitter_data = False, **kwargs)", DeprecationWarning)
         return old_boxplot(*args, **kwargs)
 
-def new_boxplot(ax, x, data, jitter_data = False, **kwargs):
+def new_boxplot(ax, x, data, jitter_data = False, clip_on = True, **kwargs):
 
     """
     A function to plot a box plot on a given matplotlib axis with additional options for jittered data. Will omit nans from the data. 
@@ -143,12 +143,12 @@ def new_boxplot(ax, x, data, jitter_data = False, **kwargs):
         
         ax.scatter(x + noise, filtered_data,
                 s = data_size, facecolors = 'none',
-               edgecolors=data_color, alpha = data_alpha, lw = data_lw, zorder = data_zorder, clip_on = False)
+               edgecolors=data_color, alpha = data_alpha, lw = data_lw, zorder = data_zorder, clip_on = clip_on)
             
         if include_mean:
             ax.scatter(x, np.nanmean(filtered_data) ,
                         s = data_size, facecolors = mean_color,
-                       edgecolors=mean_color, alpha = mean_alpha, lw = data_lw, zorder = mean_zorder, clip_on = False)
+                       edgecolors=mean_color, alpha = mean_alpha, lw = data_lw, zorder = mean_zorder, clip_on = clip_on)
         
     return ax
 
