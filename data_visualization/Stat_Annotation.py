@@ -39,7 +39,9 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
         stacked = kwargs.get("stacked", False)
         
         #Handle P-Value
-        if p_val < 0.001 and not exact_p:
+        if p_val == None:
+            p_text = ''
+        elif p_val < 0.001 and not exact_p:
             p_text = f"p < 0.001"
         elif p_val >= 0.001 or exact_p:
             p_text = f"p = {p_val:.3f}"
@@ -91,7 +93,9 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
         stacked = kwargs.get("stacked", False)
         
         #Handle P-Value
-        if p_val < 0.001 and not exact_p:
+        if p_val == None:
+            p_text = ''
+        elif p_val < 0.001 and not exact_p:
             p_text = f"p < 0.001"
         elif p_val >= 0.001 or exact_p:
             p_text = f"p = {p_val:.3f}"
