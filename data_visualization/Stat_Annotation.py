@@ -25,47 +25,47 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
         main_effect_prong = True
         if np.size(x1) == 1:
             main_effect_prong = False
+
+    color = kwargs.get("color", "grey")
+    h = kwargs.get("h", 0.1 * y[0])
+    lw = kwargs.get("lw", .7)
+    fontsize = kwargs.get("fontsize", 6)
+    exact_p = kwargs.get("exact_p", False)
+    indicator_length = kwargs.get("indicator_length", 0)
+    stacked = kwargs.get("stacked", False)
+    
+    #Handle P-Value
+    if p_val == None:
+        p_text = ''
+    elif p_val < 0.001 and not exact_p:
+        p_text = f"p < 0.001"
+    elif p_val >= 0.001 or exact_p:
+        p_text = f"p = {p_val:.3f}"
         
+    #Handle Effect Size and Common Language Effect Size
+    if effect_size != None and cles != None: #if both
+        
+        if cles_first:
+            p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}" + f", d = {effect_size:.2f}" 
+        else:
+            p_text = p_text + f", d = {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
+            
+    elif effect_size != None and cles == None: #if only Cohen D
+        p_text = p_text + f", d = {effect_size:.2f}" 
+        
+    elif effect_size == None and cles != None: #if only CLES
+        p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
+
+    if preamble != "" and preamble != None: #If Preamble
+        if not stacked:
+            p_text = preamble + " " + p_text 
+        else:
+            p_text = preamble + ", " + p_text
+                
     if main_effect_prong:
         if np.shape(x1) != np.shape(x2):
             raise ValueError('Wrong Axis Shape')
-            
-        color = kwargs.get("color", "grey")
-        h = kwargs.get("h", 0.1 * y[0])
-        lw = kwargs.get("lw", .7)
-        fontsize = kwargs.get("fontsize", 6)
-        exact_p = kwargs.get("exact_p", False)
-        indicator_length = kwargs.get("indicator_length", 0)
-        stacked = kwargs.get("stacked", False)
         
-        #Handle P-Value
-        if p_val == None:
-            p_text = ''
-        elif p_val < 0.001 and not exact_p:
-            p_text = f"p < 0.001"
-        elif p_val >= 0.001 or exact_p:
-            p_text = f"p = {p_val:.3f}"
-            
-        #Handle Effect Size and Common Language Effect Size
-        if effect_size != None and cles != None: #if both
-            
-            if cles_first:
-                p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}" + f", d = {effect_size:.2f}" 
-            else:
-                p_text = p_text + f", d = {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
-                
-        elif effect_size != None and cles == None: #if only Cohen D
-            p_text = p_text + f", d = {effect_size:.2f}" 
-            
-        elif effect_size == None and cles != None: #if only CLES
-            p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
-    
-        if preamble != "" and preamble != None: #If Preamble
-            if not stacked:
-                p_text = preamble + " " + p_text 
-            else:
-                p_text = preamble + ", " + p_text
-                
         #plot the text
         if not stacked:
             ax.plot([np.nanmean(x1), np.nanmean(x1), np.nanmean(x2), np.nanmean(x2)], [y[1], y[0], y[0], y[2]], lw=lw, c=color)
@@ -83,43 +83,6 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
             ax.text((np.nanmean(x1)+np.nanmean(x2))*.5, y[0]+h , stacked_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
                   
     else:
-                        
-        color = kwargs.get("color", "grey")
-        h = kwargs.get("h", 0.1 * y)
-        lw = kwargs.get("lw", .7)
-        fontsize = kwargs.get("fontsize", 6)
-        exact_p = kwargs.get("exact_p", False)
-        indicator_length = kwargs.get("indicator_length", 0)
-        stacked = kwargs.get("stacked", False)
-        
-        #Handle P-Value
-        if p_val == None:
-            p_text = ''
-        elif p_val < 0.001 and not exact_p:
-            p_text = f"p < 0.001"
-        elif p_val >= 0.001 or exact_p:
-            p_text = f"p = {p_val:.3f}"
-            
-        #Handle Effect Size and Common Language Effect Size
-        if effect_size != None and cles != None: #if both
-            
-            if cles_first:
-                p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}" + f", d = {effect_size:.2f}" 
-            else:
-                p_text = p_text + f", d = {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
-                
-        elif effect_size != None and cles == None: #if only Cohen D
-            p_text = p_text + f", d = {effect_size:.2f}" 
-            
-        elif effect_size == None and cles != None: #if only CLES
-            p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
-    
-        if preamble != "" and preamble != None: #If Preamble
-            if not stacked:
-                p_text = preamble + " " + p_text 
-            else:
-                p_text = preamble + ", " + p_text
-                
         #plot the text
         if not stacked:
             line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color, clip_on = False)
