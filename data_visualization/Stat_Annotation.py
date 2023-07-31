@@ -27,7 +27,8 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
             main_effect_prong = False
 
     color = kwargs.get("color", "grey")
-    h = kwargs.get("h", 0.1 * y[0])
+    
+    h = kwargs.get("h", 0.05)
     lw = kwargs.get("lw", .7)
     fontsize = kwargs.get("fontsize", 6)
     exact_p = kwargs.get("exact_p", False)
