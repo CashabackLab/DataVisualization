@@ -1,4 +1,7 @@
 from string import ascii_uppercase
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+
 class Figure:
     def __init__(self, axmain = None, ax = None, figsize = (6.5, 4), dpi = 150, invert = True):
         
