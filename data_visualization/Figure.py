@@ -44,14 +44,14 @@ class Figure:
         for panel in self.panels:
             panel.axis("off")
         
-    def add_letter(self, x, y, letter = None, fontsize = 12, ha = "left", va = "top", color = "black"):
+    def add_letter(self, x, y, letter = None, fontsize = 12, ha = "left", va = "top", color = "black", zorder = 20):
         if letter == None:
             letter_to_add = ascii_uppercase[len(self.letters)]
         else:
             letter_to_add = letter
         
         self.letters.append(letter_to_add)
-        self.ax.text(x, y, letter_to_add, ha = ha, va = va, fontweight = "bold", color = color, fontsize = fontsize)
+        self.ax.text(x, y, letter_to_add, ha = ha, va = va, fontweight = "bold", color = color, fontsize = fontsize, zorder = zorder)
         
     def add_panel(self, dim):
         panel = self.ax.inset_axes(dim, transform = self.ax.transData)
