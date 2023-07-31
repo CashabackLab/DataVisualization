@@ -19,6 +19,7 @@ from .generate_rectangle_icons import *
 from .jitter_array import jitter_array
 from .set_transparent import set_transparent
 from .figure_panel import figure_panel
+from .Figure import Figure
 
 import data_visualization.icons 
 
@@ -26,4 +27,4 @@ import matplotlib as mpl
 mpl.rcParams["axes.facecolor"]   = "none"
 mpl.rcParams["figure.facecolor"] = "none"
 
-__version__ = "0.9.9"
+__version__ = "0.9.10"
