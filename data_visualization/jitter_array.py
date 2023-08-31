@@ -51,10 +51,8 @@ def jitter_array(ax, x_positions, data_list, noise_scale = 0.05, **kwargs):
     x_positions = np.array(x_positions)
     
     #plot individual datapoints
-    if np.ndim(data_list) == 1: #HALP
-        data_length = len(data_list)
-    else:
-        data_length = len(data_list[0])
+    data_length = len(data_list)
+    
     for i in range(data_length):
         noise = np.random.normal(0, noise_scale)
 
