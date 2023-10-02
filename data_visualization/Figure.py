@@ -26,6 +26,18 @@ class Figure:
         self.axmain, self.ax = axmain, ax
         
         self.figure = self.axmain.get_figure()
+
+        #Enforces axes on regardless of stylesheet
+        self.axmain.spines.top.set_visible(True)
+        self.axmain.spines.right.set_visible(True)
+        self.axmain.spines.bottom.set_visible(True)
+        self.axmain.spines.left.set_visible(True)
+
+        self.ax.spines.top.set_visible(True)
+        self.ax.spines.right.set_visible(True)
+        self.ax.spines.bottom.set_visible(True)
+        self.ax.spines.left.set_visible(True)
+        
         self.figsize = figsize
         self.dpi = dpi
         
