@@ -114,7 +114,8 @@ def new_boxplot(ax, x, data, jitter_data = False, clip_on = True, **kwargs):
     median_props = {"linewidth" : whisker_lw, "color": color}
 
     '''Make Box Plots'''
-        
+    ax.set_facecolor("none")
+    
     data = np.array(data)
     filtered_data = data[~np.isnan(data)]
     #Make Box
