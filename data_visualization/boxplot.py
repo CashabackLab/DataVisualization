@@ -43,7 +43,7 @@ def boxplot(*args, **kwargs):
         The axis object with the box plot and optional jittered data added.
     """
     
-    if isinstance(args[0], mpl.axes.Axes) and isinstance(args[1], (int, float)):
+    if isinstance(args[0], mpl.axes.Axes):# and isinstance(args[1], (int, float)):
         return new_boxplot(*args, **kwargs)
     else:
         #legacy boxplot
