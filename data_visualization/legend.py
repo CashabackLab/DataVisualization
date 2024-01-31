@@ -1,10 +1,13 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+import numpy as np
 
 def legend(ax, labels, colors, ncol = 1,
-                 fontsize = 6, linewidth = None, framealpha = 0, loc = "best", fontweight = "bold",
-                 columnspacing = 0, linestyle = None, lw = None, ls = None, **kwargs):
+            fontsize = 6, linewidth = None, 
+            framealpha = 0, loc = "best", fontweight = "bold",
+            columnspacing = 0, linestyle = None, lw = None, 
+            ls = None, handlestyle="bar", markersize=None, **kwargs):
     """
     Creates Custom colored legend
     Parameters
@@ -14,7 +17,7 @@ def legend(ax, labels, colors, ncol = 1,
     """
     
     if len(labels) != len(colors):
-        raise RuntimeError("Number of Labels should match number of Colors.") 
+        raise RuntimeError("Number of Labels should match number of Colors.")
         
     if lw == None and linewidth == None:
         linewidth = 4
@@ -26,22 +29,23 @@ def legend(ax, labels, colors, ncol = 1,
     elif ls != None and linestyle == None:
         linestyle = ls
         
-        
-    custom_lines = []
-    if linestyle == None:
-        for color in colors:
-            custom_lines.append(Line2D([0], [0], color=color, lw=linewidth, ls = "-"))
+    if not isinstance(linestyle,(list, np.ndarray)):
+        linestyle = [linestyle]*len(colors)        
+    
+    custom_handles = []            
+    if handlestyle == "bar":
+        for i,color in enumerate(colors):
+            custom_handles.append(Line2D([0], [0], color=color, 
+                                         lw=linewidth, ls = linestyle[i]))
+    elif handlestyle == "circle":
+        for i,color in enumerate(colors):
+            custom_handles.append(Line2D([], [], marker='o', markersize=markersize, 
+                                         markerfacecolor=color, markeredgecolor=color, 
+                                         ls="none", lw=linewidth))
             
-    elif type(linestyle) == str:
-        for color in colors:
-            custom_lines.append(Line2D([0], [0], color=color, lw=linewidth, ls = linestyle))
-            
-    elif type(linestyle) == list:
-        for i, color in enumerate(colors):
-            custom_lines.append(Line2D([0], [0], color=color, lw=linewidth, ls = linestyle[i]))
-
-    leg = ax.legend(custom_lines, labels, fontsize = fontsize,
-             framealpha = framealpha, loc = loc, ncol = ncol, columnspacing = columnspacing, **kwargs)
+    leg = ax.legend(custom_handles, labels, fontsize = fontsize,
+             framealpha = framealpha, loc = loc, ncol = ncol, 
+             columnspacing = columnspacing, **kwargs)
     
     leg_text = leg.get_texts()
     for i, text in enumerate(leg_text):
