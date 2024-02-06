@@ -1,4 +1,4 @@
-import matplotlib.pyploy as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 class AutoFigure:
