@@ -7,7 +7,7 @@ def legend(ax, labels, colors, ncol = 1,
             fontsize = 6, linewidth = None, 
             framealpha = 0, loc = "best", fontweight = "bold",
             columnspacing = 0, linestyle = None, lw = None, 
-            ls = None, handlestyle="bar", markersize=None, **kwargs):
+            ls = None, handlestyle="bar", markersize=None, handletextpad=None, **kwargs):
     """
     Creates Custom colored legend
     Parameters
@@ -38,6 +38,8 @@ def legend(ax, labels, colors, ncol = 1,
             custom_handles.append(Line2D([0], [0], color=color, 
                                          lw=linewidth, ls = linestyle[i]))
     elif handlestyle == "circle":
+        if handletextpad is None:
+            handletextpad = 0
         for i,color in enumerate(colors):
             custom_handles.append(Line2D([], [], marker='o', markersize=markersize, 
                                          markerfacecolor=color, markeredgecolor=color, 
@@ -45,7 +47,7 @@ def legend(ax, labels, colors, ncol = 1,
             
     leg = ax.legend(custom_handles, labels, fontsize = fontsize,
              framealpha = framealpha, loc = loc, ncol = ncol, 
-             columnspacing = columnspacing, **kwargs)
+             columnspacing = columnspacing, handletextpad=handletextpad, **kwargs)
     
     leg_text = leg.get_texts()
     for i, text in enumerate(leg_text):
