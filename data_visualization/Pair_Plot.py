@@ -8,7 +8,7 @@ def _zero_to_nan(values):
     """Replace every 0 with 'nan' and return a copy."""
     return [float('nan') if x==0 else x for x in values]
 
-def Pair_Plot(parameter_array, labels, **kwargs):
+def Pair_Plot(_parameter_array, labels, **kwargs):
     """
     Plots distribution of parameters, with marginal distributions on the diagonal and joint
     distributions everywhere else.
@@ -26,6 +26,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
 
         show_cumulative   = kwargs.get("show_cumulative", True)
         show_significance = kwargs.get("show_significance", False)
+        spearmanr_nan_policy = kwarsgs.get("spearmanr_nan_policy","propagate")
 
         figsize = kwargs.get("figsize", (6, 6))
         dpi     = kwargs.get("dpi", 300)
@@ -41,6 +42,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
         
         remove_heavy_outliers = kwargs.get("remove_heavy_outliers", False) #remove data points farther than 5 standard deviations away from the mean (significantly more extreme than 99.99994% of the data)
     """
+    parameter_array = _parameter_array.copy()
     num_params = parameter_array.shape[1]
 
     #optional parameters
@@ -57,6 +59,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
 
     show_cumulative   = kwargs.get("show_cumulative", True)
     show_significance = kwargs.get("show_significance", False)
+    spearmanr_nan_policy = kwarsgs.get("spearmanr_nan_policy","propagate")
 
     figsize = kwargs.get("figsize", (6, 6))
     dpi     = kwargs.get("dpi", 300)
@@ -137,7 +140,7 @@ def Pair_Plot(parameter_array, labels, **kwargs):
           #Plot Joint Distributions
             else:
                 #get rho and p_val
-                rho, p_val = spearmanr(parameter_array[:, col], parameter_array[:, row])
+                rho, p_val = spearmanr(parameter_array[:, col], parameter_array[:, row],nan_policy = spearmanr_nan_policy)
                 #If significant, color dots green and display stats
                 if p_val < 0.05 :
                     ax[row, col].scatter(parameter_array[:, col], parameter_array[:, row], s = 1, lw = 0, color = dot_color, label = fr'$\rho = {rho:.3f}$', alpha = dot_alpha)
