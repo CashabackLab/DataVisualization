@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
+from string import ascii_uppercase
 class AutoFigure:
     def __init__(self, mosaic, figsize = (6.5,4), dpi=150, layout="constrained", sharex=False,sharey=False,
                  hspace = None, wspace = None, height_ratios=None, width_ratios=None):
@@ -26,6 +26,8 @@ class AutoFigure:
         self.axmain.set_xlim(0,figsize[0])
         self.axmain.set_ylim(0,figsize[1])
         
+        self.axmain.patch.set_alpha(0) # Needs to be transparent otherwise it'll cover everything
+                
         self.letters = []
         
     def fig_data_to_axis_transform(self,ax):
