@@ -59,7 +59,7 @@ def Pair_Plot(_parameter_array, labels, **kwargs):
 
     show_cumulative   = kwargs.get("show_cumulative", True)
     show_significance = kwargs.get("show_significance", False)
-    spearmanr_nan_policy = kwarsgs.get("spearmanr_nan_policy","propagate")
+    spearmanr_nan_policy = kwargs.get("spearmanr_nan_policy","propagate")
 
     figsize = kwargs.get("figsize", (6, 6))
     dpi     = kwargs.get("dpi", 300)
