@@ -17,7 +17,7 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
     exact_p          = kwargs.get("exact_p", False)
     indicator_length = kwargs.get("indicator_length", 0)
     stacked          = kwargs.get("stacked", False)
-    fontweight 
+    fontweight       = kwargs.get("fontweight", "bold")
     """
     main_effect_prong = False
     
@@ -31,6 +31,7 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
     h = kwargs.get("h", 0.05)
     lw = kwargs.get("lw", .7)
     fontsize = kwargs.get("fontsize", 6)
+    fontweight = kwargs.get("fontweight", "bold")
     exact_p = kwargs.get("exact_p", False)
     indicator_length = kwargs.get("indicator_length", 0)
     stacked = kwargs.get("stacked", False)
@@ -42,20 +43,29 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
         p_text = f"p < 0.001"
     elif p_val >= 0.001 or exact_p:
         p_text = f"p = {p_val:.3f}"
-        
+
+    # Defining our theta hat (for CLES) strings:
+    theta_hat_cles_first = r', $\mathbf{\hat{\theta}}$ = '
+    theta_hat = r'$\mathbf{\hat{\theta}}$ = '
+    if fontweight == "normal":
+        print(fontweight)
+        theta_hat_cles_first = r', $\hat{\theta}$ = '
+        theta_hat = r'$\hat{\theta}$ = '
+
+
     #Handle Effect Size and Common Language Effect Size
     if effect_size != None and cles != None: #if both
         
         if cles_first:
-            p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}" + f", d = {effect_size:.2f}" 
+            p_text = p_text + theta_hat_cles_first + f"{cles:.2f}" + f", d = {effect_size:.2f}" 
         else:
-            p_text = p_text + f", d = {effect_size:.2f}, " + r'$\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
+            p_text = p_text + f", d = {effect_size:.2f}, " + theta + f"{cles:.2f}"
             
     elif effect_size != None and cles == None: #if only Cohen D
         p_text = p_text + f", d = {effect_size:.2f}" 
         
     elif effect_size == None and cles != None: #if only CLES
-        p_text = p_text + r', $\mathbf{\hat{\theta}}$ = ' + f"{cles:.2f}"
+        p_text = p_text + theta_hat_cles_first + f"{cles:.2f}"
 
     if preamble != "" and preamble != None: #If Preamble
         if not stacked:
@@ -72,7 +82,7 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
             ax.plot([np.nanmean(x1), np.nanmean(x1), np.nanmean(x2), np.nanmean(x2)], [y[1], y[0], y[0], y[2]], lw=lw, c=color)
             ax.plot([x1[0],x1[0],x1[1],x1[1]],[y[1] - indicator_length, y[1], y[1], y[1] - indicator_length], lw=lw, c=color)
             ax.plot([x2[0],x2[0],x2[1],x2[1]],[y[2] - indicator_length, y[2], y[2], y[2] - indicator_length], lw=lw, c=color)
-            ax.text((np.nanmean(x1)+np.nanmean(x2))*.5, y[0]+h , p_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+            ax.text((np.nanmean(x1)+np.nanmean(x2))*.5, y[0]+h , p_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = fontweight)
         else:
             ax.plot([np.nanmean(x1), np.nanmean(x1), np.nanmean(x2), np.nanmean(x2)], [y[1], y[0], y[0], y[2]], lw=lw, c=color)
             ax.plot([x1[0],x1[0],x1[1],x1[1]],[y[1] - indicator_length, y[1], y[1], y[1] - indicator_length], lw=lw, c=color)
@@ -81,20 +91,20 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
             split_text = p_text.split(", ")
             stacked_text = "\n".join(split_text)
             
-            ax.text((np.nanmean(x1)+np.nanmean(x2))*.5, y[0]+h , stacked_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+            ax.text((np.nanmean(x1)+np.nanmean(x2))*.5, y[0]+h , stacked_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = fontweight)
                   
     else:
         #plot the text
         if not stacked:
             line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color, clip_on = False)
-            text = ax.text((x1+x2)*.5, y+h , p_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+            text = ax.text((x1+x2)*.5, y+h , p_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = fontweight)
         else:
             line = ax.plot([x1, x1, x2, x2], [y - indicator_length, y, y, y - indicator_length], lw=lw, c=color, clip_on = False)
             
             split_text = p_text.split(", ")
             stacked_text = "\n".join(split_text)
             
-            text = ax.text((x1+x2)*.5, y+h , stacked_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = "bold")
+            text = ax.text((x1+x2)*.5, y+h , stacked_text, ha='center', va='bottom', color=color, fontsize = fontsize, weight = fontweight)
         return line, text
 
 def Stat_Annotation(ax, x1, x2, y, p_val, effect_size = None, h = 0, color = "grey", lw = .7, fontsize = 6, exact_p = False):
