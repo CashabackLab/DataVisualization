@@ -42,6 +42,7 @@ def jitter_array(ax, x_positions, data, noise_scale = 0.05, **kwargs):
     circle_lw       = kwargs.get("circle_lw", 0.5)
     mean_zorder     = kwargs.get("mean_zorder", 0)
     data_zorder     = kwargs.get("data_zorder", 0)
+    clip_on         = kwargs.get("clip_on",True)
     
     if isinstance(data,list):
         data = np.array(data)
@@ -65,17 +66,17 @@ def jitter_array(ax, x_positions, data, noise_scale = 0.05, **kwargs):
         data_list = [x[i] for x in data]
         
         ax.plot(x_positions + noise, data_list,
-                lw = lw, c = data_edge_color, alpha = circle_alpha, zorder = data_zorder-1, clip_on = False)
+                lw = lw, c = data_edge_color, alpha = circle_alpha, zorder = data_zorder-1, clip_on = clip_on)
 
         ax.scatter(x_positions + noise, data_list,
                     s = circle_size, facecolors = 'none',
-                edgecolors=data_color, alpha = circle_alpha, lw = circle_lw, zorder = data_zorder, clip_on = False)
+                edgecolors=data_color, alpha = circle_alpha, lw = circle_lw, zorder = data_zorder, clip_on = clip_on)
     
     #Plot mean datapoints
     if include_mean:
         ax.plot(x_positions, [np.nanmean(array) for array in data],
-                    lw = 2*lw, c = mean_edge_color, alpha = 1, zorder = mean_zorder, clip_on = False)
+                    lw = 2*lw, c = mean_edge_color, alpha = 1, zorder = mean_zorder, clip_on = clip_on)
 
         ax.scatter(x_positions, [np.nanmean(array) for array in data],
                     s = circle_size, facecolors = mean_color,
-                edgecolors=mean_color, alpha = 1, lw = circle_lw, zorder = mean_zorder, clip_on = False)
+                edgecolors=mean_color, alpha = 1, lw = circle_lw, zorder = mean_zorder, clip_on = clip_on)
