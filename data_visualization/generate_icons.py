@@ -27,7 +27,7 @@ def get_healthy_icon(color = "#000000"):
     fileName = "Young"
     pic_format = "png"
     new_color = color #change this to desired color
-
+    
     path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
@@ -52,7 +52,7 @@ def get_elderly_icon(color = "#000000"):
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -77,7 +77,7 @@ def get_foot_icon(color = "#000000", filled = False):
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -101,7 +101,7 @@ def get_walking_icon(color = "#000000"):
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -125,7 +125,7 @@ def get_open_hand_icon(color = "#000000"):
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -150,7 +150,7 @@ def get_hand_icon(color = "#000000", filled = False):
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -179,7 +179,7 @@ def get_sight_icon(color = "#000000"):
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -208,7 +208,7 @@ def get_reward_icon(color = "#000000"):
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -232,14 +232,14 @@ def get_reward_icon(color = "#000000"):
 def get_punishment_icon(color = "#000000"):
     """
     Returns a Punishment Sound Icon in the given color.
-    Color must be in hex code.
+    Color must be in hex code. Defaults new color to black: #000000. Removes 
     """
     
     fileName = "Punishment_Sound"
     pic_format = "png"
     new_color = color #change this to desired color
 
-    path = __file__[:-18]
+    path = os.path.dirname(os.path.realpath(__file__)) # getting full parent directory (no wildcards) of current module (file)
     filepath = os.path.join(path, "images", fileName)
     img = Image.open(filepath + '.' + pic_format)
     img = img.convert("RGBA")
@@ -250,10 +250,14 @@ def get_punishment_icon(color = "#000000"):
     newData = []
 
     for i, item in enumerate(datas):
+        # If close to white, sets to white, and then makes that value
+        # "transparent".
         if item[0] >= 245 and item[1] >= 245 and item[2] >= 245:
             newData.append((255, 255, 255, 0))
-        elif item[0] < 132:
+        # If the R value is "darker" will completely replace with new color
+        elif item[0] < 132: # fidget value (found by trial and error)
             newData.append((new_color[0], new_color[1], new_color[2], 255))
+        # Blends new color with white (for interior of speaker)
         else:
             newData.append(blend_colors(new_color, (255, 255, 255)))
 
