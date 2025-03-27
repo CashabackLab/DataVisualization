@@ -33,8 +33,10 @@ from .Figure import Figure
 
 import data_visualization.icons 
 
+from .plot_styles import *
+
 import matplotlib as mpl
 mpl.rcParams["axes.facecolor"]   = "none"
 mpl.rcParams["figure.facecolor"] = "none"
 
-__version__ = "0.10.1"
+__version__ = "0.11.2"
