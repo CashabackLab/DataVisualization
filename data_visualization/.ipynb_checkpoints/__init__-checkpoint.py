@@ -39,4 +39,4 @@ import matplotlib as mpl
 mpl.rcParams["axes.facecolor"]   = "none"
 mpl.rcParams["figure.facecolor"] = "none"
 
-__version__ = "0.11.3"
+__version__ = "0.11.4"
