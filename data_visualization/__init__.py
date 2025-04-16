@@ -13,7 +13,8 @@ from .AutoFigure import AutoFigure
 
 
 from .generate_icons import (
-    get_sight_icon, 
+    get_sight_icon,
+    get_curlybrace_icon,
     get_reward_icon, 
     get_punishment_icon, 
     get_hand_icon, 
