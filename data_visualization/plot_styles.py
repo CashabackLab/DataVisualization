@@ -30,15 +30,20 @@ def get_plot_style_path(plot_style):
     data_vis_path = os.path.dirname(os.path.realpath(__file__)) # package folder location
     plt_styles_folder_path = os.path.join(data_vis_path, "plot_styles")
 
-    # Testing if "plot_style" is a string and a valid option
-    if not isinstance(plot_style, str):
-        show_styles()
-        raise TypeError("plot_style must be a string. Review the valid plot styles.")
-    elif plot_style not in os.listdir(plt_styles_folder_path):
+    try:
+        # Testing if "plot_style" is a string and a valid option
+        if not isinstance(plot_style, str):
+            show_styles()
+            raise TypeError("plot_style must be a string. Review the valid plot styles.")
+        elif plot_style not in os.listdir(plt_styles_folder_path):
+            raise ValueError
+        else:
+            plot_style_path = os.path.join(plt_styles_folder_path, plot_style)
+            
+    except ValueError:
         print("Please select a valid option for plot_style: ")
         show_styles()
-    else:
-        plot_style_path = os.path.join(plt_styles_folder_path, plot_style)
+        return
         
     return plot_style_path
 
