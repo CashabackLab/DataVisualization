@@ -87,6 +87,28 @@ class AutoFigure:
     def add_all_letters(self, fontsize=12,
                         va="top",ha='left',fontfamily="sans-serif",fontweight="bold",
                         verticalshift=0, horizontalshift=0, skip_legend=True):
+        '''
+        Adds letters to each axis in the figure, starting from 'A' and going through the alphabet.
+        NOTE: If you'd like to skip the legend axes, you must name them 'leg' or 'legend' in the mosaic.
+        Parameters
+        ----------
+        fontsize : int
+            Font size for the letters.
+        va : str
+            Vertical alignment for the letters.
+        ha : str
+            Horizontal alignment for the letters.
+        fontfamily : str
+            Font family for the letters.
+        fontweight : str
+            Font weight for the letters.
+        verticalshift : float or list of float
+            Vertical shift for the letters.
+        horizontalshift : float or list of float
+            Horizontal shift for the letters.
+        skip_legend : bool
+            Whether to skip the legend axes.
+        '''
         default_start = (-0,1.0)
         if not isinstance(verticalshift, list):
             verticalshift = np.array([verticalshift]*self.num_axes)
