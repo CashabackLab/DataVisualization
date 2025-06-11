@@ -1,1 +1,2 @@
 include data_visualization/images/*
+include data_visualization/plot_styles/*

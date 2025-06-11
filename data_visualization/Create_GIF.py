@@ -1,4 +1,3 @@
-from tqdm.notebook import tqdm
 from PIL import Image
 from .gen_frame import *
 
@@ -27,7 +26,7 @@ def Create_GIF(filename, path, num_images, duration = 66, loop = None):
     frames = []
     
     print("Genrating Frame Data")
-    for i in tqdm(range(num_images)):
+    for i in range(num_images):
         frames.append(gen_frame(path + f"{filename}_{i}.png"))
         
     print("Saving gif...")
