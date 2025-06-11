@@ -86,7 +86,7 @@ class AutoFigure:
             
     def add_all_letters(self, fontsize=12,
                         va="top",ha='left',fontfamily="sans-serif",fontweight="bold",
-                        verticalshift=0, horizontalshift=0):
+                        verticalshift=0, horizontalshift=0, skip_legend=True):
         default_start = (-0,1.0)
         if not isinstance(verticalshift, list):
             verticalshift = np.array([verticalshift]*self.num_axes)
@@ -94,8 +94,14 @@ class AutoFigure:
             horizontalshift = np.array([horizontalshift]*self.num_axes)
         
         shift = np.vstack((horizontalshift, verticalshift))
+
+        if skip_legend:
+            # remove legend axes from the axes dictionary
+            selected_axes = {k: v for k, v in self.axes.items() if k not in ['leg', "legend"]}
+        else:
+            selected_axes = self.axes
         
-        for i,(label, ax) in enumerate(self.axes.items()):
+        for i,ax in enumerate(selected_axes.values()):
             transfig_loc = self.axis_to_fig_data_transform(ax).transform(default_start) + shift[:,i]
             transax_loc = self.fig_data_to_axis_transform(ax).transform(transfig_loc)
             # label physical distance in and down:
@@ -121,7 +127,7 @@ class AutoFigure:
                 fontweight = "bold", color = color, fontsize = fontsize, zorder = zorder)
     
     @property
-    def alphabetic_axes(self) -> list:
+    def alphabetic_axes(self) -> dict:
         sorted_keys = sorted(self.axes)
         return {k:self.axes[k] for k in sorted_keys}
         
