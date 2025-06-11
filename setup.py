@@ -19,7 +19,7 @@ setup(
     # Needed to actually package something
     packages=['data_visualization', 'data_visualization.icons'],
     # Needed for dependencies
-    install_requires=['numpy', 'matplotlib >= 3.5.0', 'pillow'],
+    install_requires=['numpy', 'scipy >= 1.11', 'matplotlib >= 3.5.0', 'pillow'],
     # *strongly* suggested for sharing
     version=version,
     # The license can be anything you like

@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: DataVisualization
+Version: 0.11.6
+Summary: Python package for visualizing human kinematic data and analytical results, tailored for the Cashaback Lab
+Home-page: https://github.com/CashabackLab/DataVisualization
+Download-URL: https://github.com/CashabackLab/DataVisualization
+Author: CashabackLab
+Author-email: cashabacklab@gmail.com
+License: MIT
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: pillow
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: download-url
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary
+
+# DataVisualization
+Plotting functions and modules for Cashaback Lab analyses
+
+# Installation
+``pip install git+https://github.com/CashabackLab/DataVisualization.git``
