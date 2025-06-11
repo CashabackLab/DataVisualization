@@ -84,9 +84,31 @@ class AutoFigure:
         self.fig.set_layout_engine('none')
         ax.set_position((x/self.figw, y/self.figh, (w+dw)/self.figw, (h+dh)/self.figh))
             
-    def add_all_letters(self, xy = (0,1), fontsize=12,
+    def add_all_letters(self, fontsize=12,
                         va="top",ha='left',fontfamily="sans-serif",fontweight="bold",
-                        verticalshift=0, horizontalshift=0):
+                        verticalshift=0, horizontalshift=0, skip_legend=True):
+        '''
+        Adds letters to each axis in the figure, starting from 'A' and going through the alphabet.
+        NOTE: If you'd like to skip the legend axes, you must name them 'leg' or 'legend' in the mosaic.
+        Parameters
+        ----------
+        fontsize : int
+            Font size for the letters.
+        va : str
+            Vertical alignment for the letters.
+        ha : str
+            Horizontal alignment for the letters.
+        fontfamily : str
+            Font family for the letters.
+        fontweight : str
+            Font weight for the letters.
+        verticalshift : float or list of float
+            Vertical shift for the letters.
+        horizontalshift : float or list of float
+            Horizontal shift for the letters.
+        skip_legend : bool
+            Whether to skip the legend axes.
+        '''
         default_start = (-0,1.0)
         if not isinstance(verticalshift, list):
             verticalshift = np.array([verticalshift]*self.num_axes)
@@ -94,8 +116,14 @@ class AutoFigure:
             horizontalshift = np.array([horizontalshift]*self.num_axes)
         
         shift = np.vstack((horizontalshift, verticalshift))
+
+        if skip_legend:
+            # remove legend axes from the axes dictionary
+            selected_axes = {k: v for k, v in self.axes.items() if k not in ['leg', "legend"]}
+        else:
+            selected_axes = self.axes
         
-        for i,(label, ax) in enumerate(self.axes.items()):
+        for i,ax in enumerate(selected_axes.values()):
             transfig_loc = self.axis_to_fig_data_transform(ax).transform(default_start) + shift[:,i]
             transax_loc = self.fig_data_to_axis_transform(ax).transform(transfig_loc)
             # label physical distance in and down:
@@ -103,7 +131,7 @@ class AutoFigure:
             trans = self.fig_data_to_axis_transform(ax)
             ax.text(transax_loc[0], transax_loc[1], letter, transform=ax.transAxes,
                     fontsize=fontsize, verticalalignment=va, ha=ha,
-                    fontfamily=fontfamily, fontweight="bold",
+                    fontfamily=fontfamily, fontweight=fontweight,
             )
                    
             
@@ -121,7 +149,7 @@ class AutoFigure:
                 fontweight = "bold", color = color, fontsize = fontsize, zorder = zorder)
     
     @property
-    def alphabetic_axes(self) -> list:
+    def alphabetic_axes(self) -> dict:
         sorted_keys = sorted(self.axes)
         return {k:self.axes[k] for k in sorted_keys}
         
