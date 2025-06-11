@@ -84,7 +84,7 @@ class AutoFigure:
         self.fig.set_layout_engine('none')
         ax.set_position((x/self.figw, y/self.figh, (w+dw)/self.figw, (h+dh)/self.figh))
             
-    def add_all_letters(self, xy = (0,1), fontsize=12,
+    def add_all_letters(self, fontsize=12,
                         va="top",ha='left',fontfamily="sans-serif",fontweight="bold",
                         verticalshift=0, horizontalshift=0):
         default_start = (-0,1.0)
@@ -103,7 +103,7 @@ class AutoFigure:
             trans = self.fig_data_to_axis_transform(ax)
             ax.text(transax_loc[0], transax_loc[1], letter, transform=ax.transAxes,
                     fontsize=fontsize, verticalalignment=va, ha=ha,
-                    fontfamily=fontfamily, fontweight="bold",
+                    fontfamily=fontfamily, fontweight=fontweight,
             )
                    
             
