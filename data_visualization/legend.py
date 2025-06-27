@@ -49,7 +49,7 @@ def legend(ax, labels, colors, ncol = 1,
     print(markersize)
     custom_handles = []            
     
-    for i in range(legend_count):
+        for i in range(legend_count):
         
         
         curr_handle = handlestyle[i]
@@ -62,7 +62,8 @@ def legend(ax, labels, colors, ncol = 1,
             marker_style = None
             curr_markersize = None
             curr_linestyle = linestyle[i]
-
+            
+            curr_linecolor = curr_color
             curr_facecolor = None
             curr_edgecolor = None
 
@@ -72,6 +73,7 @@ def legend(ax, labels, colors, ncol = 1,
                 handletextpad = 0
             curr_linestyle = "none"
             
+            curr_linecolor = "none"
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
             
@@ -81,6 +83,7 @@ def legend(ax, labels, colors, ncol = 1,
                 handletextpad = 0
             curr_linestyle = "none"
 
+            curr_linecolor = "none"
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
 
@@ -90,6 +93,7 @@ def legend(ax, labels, colors, ncol = 1,
                 handletextpad = 0
             curr_linestyle = "none"
 
+            curr_linecolor = "none"
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
             
@@ -100,6 +104,7 @@ def legend(ax, labels, colors, ncol = 1,
                 handletextpad = 0
             curr_linestyle = "none"
             
+            curr_linecolor = "none"
             curr_facecolor = "none"
             curr_edgecolor = curr_color
 
