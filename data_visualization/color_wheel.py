@@ -99,6 +99,7 @@ class ColorWheel(_colorwheeldotdict):
         self.peach = "#EE5A5A"
 
         self.powder_blue = "#A6CDFD"
+        self.token_color = "#E8C600"
         #New Colors to add#################################
         
     @property
@@ -117,7 +118,7 @@ class ColorWheel(_colorwheeldotdict):
     def legacy_list(self):
         return ["pred_red", "prey_blue", "rak_blue", "rak_orange",
                 "rak_red", "prey_blue_light", "dark_blue_hc", "plum_blue",
-                "seth_blue", "seth_red", "adam_blue"]
+                "seth_blue", "seth_red", "adam_blue", "token_color"]
     
     @property
     def random_color(self):
