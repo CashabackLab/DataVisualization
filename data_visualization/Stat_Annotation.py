@@ -48,7 +48,6 @@ def stat_annotation(ax, x1, x2, y, p_val, effect_size = None, cles = None, cles_
     theta_hat_cles_first = r', $\mathbf{\hat{\theta}}$ = '
     theta_hat = r'$\mathbf{\hat{\theta}}$ = '
     if fontweight == "normal":
-        print(fontweight)
         theta_hat_cles_first = r', $\hat{\theta}$ = '
         theta_hat = r'$\hat{\theta}$ = '
 
