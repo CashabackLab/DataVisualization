@@ -45,6 +45,9 @@ def legend(ax, labels, colors, ncol = 1,
 
     if len(markersize) != legend_count:
         raise RuntimeError("Number of markersizes should match number of Labels")
+    
+    if handletextpad is None:
+        handletextpad = 0
                 
     custom_handles = []            
     
@@ -57,6 +60,8 @@ def legend(ax, labels, colors, ncol = 1,
         
         
         if curr_handle == "bar":
+            # Increase handletextpad if a bar is used
+            handletextpad = 0.8
             marker_style = None
             curr_markersize = None
             curr_linestyle = linestyle[i]
@@ -67,8 +72,6 @@ def legend(ax, labels, colors, ncol = 1,
 
         elif curr_handle == "o":
             marker_style = "o"
-            if handletextpad is None:
-                handletextpad = 0
             curr_linestyle = "none"
             
             curr_linecolor = "none"
@@ -77,8 +80,6 @@ def legend(ax, labels, colors, ncol = 1,
             
         elif curr_handle == "circle":
             marker_style = "o"
-            if handletextpad is None:
-                handletextpad = 0
             curr_linestyle = "none"
 
             curr_linecolor = "none"
@@ -87,8 +88,6 @@ def legend(ax, labels, colors, ncol = 1,
 
         elif curr_handle == "x":
             marker_style = "x"
-            if handletextpad is None:
-                handletextpad = 0
             curr_linestyle = "none"
 
             curr_linecolor = "none"
@@ -98,8 +97,6 @@ def legend(ax, labels, colors, ncol = 1,
         elif  curr_handle == "hollow circle":
             
             marker_style = "o"
-            if handletextpad is None:
-                handletextpad = 0
             curr_linestyle = "none"
             
             curr_linecolor = "none"
