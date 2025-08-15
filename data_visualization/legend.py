@@ -73,7 +73,7 @@ def legend(
         curr_linestyle = linestyle[i]
         curr_markersize = markersize[i]
 
-        if curr_handle == "bar":
+        if curr_handle in  ["bar","b"] :
             # Increase handletextpad if a bar is used
             handletextpad = 0.8
             marker_style = None
@@ -83,14 +83,7 @@ def legend(
             curr_facecolor = "none"
             curr_edgecolor = "none"
 
-        elif curr_handle == "o":
-            marker_style = "o"
-            curr_linestyle = "none"
-            curr_linecolor = "none"
-            curr_facecolor = curr_color
-            curr_edgecolor = curr_color
-
-        elif curr_handle == "circle":
+        elif curr_handle in ["o","circle"]:
             marker_style = "o"
             curr_linestyle = "none"
             curr_linecolor = "none"
@@ -111,6 +104,8 @@ def legend(
             curr_linecolor = "none"
             curr_facecolor = "none"
             curr_edgecolor = curr_color
+        else:
+            raise KeyError(fr"handlestyle = '{curr_handle}' is not a valid option. Please use 'b'/'bar', 'o'/'circle', 'x', or 'hollow_circle'")
 
         custom_handles.append(
             Line2D(
