@@ -73,6 +73,7 @@ def legend(
         if curr_handle in  ["bar","b"] :
             marker_style = None
             curr_markersize = None
+            
             curr_linestyle = linestyle[i]
             curr_linecolor = curr_color
             curr_facecolor = "none"
@@ -81,6 +82,7 @@ def legend(
         elif curr_handle in ["o","circle"]:
             marker_style = "o"
             curr_linestyle = "none"
+            
             curr_linecolor = "none"
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
@@ -89,13 +91,14 @@ def legend(
             marker_style = "x"
             curr_linestyle = "none"
             curr_linecolor = "none"
+            
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
 
         elif curr_handle == "hollow_circle":
-
             marker_style = "o"
             curr_linestyle = "none"
+            
             curr_linecolor = "none"
             curr_facecolor = "none"
             curr_edgecolor = curr_color
