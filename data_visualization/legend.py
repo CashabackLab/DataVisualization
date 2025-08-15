@@ -21,6 +21,7 @@ def legend(
     handlestyle="bar",
     markersize=None,
     handletextpad=None,
+    handlelength=1,
     **kwargs
 ):
     """
@@ -36,30 +37,37 @@ def legend(
     if len(colors) != legend_count:
         raise RuntimeError("Number of Labels should match number of Colors.")
 
+    # Set default linewidth
     if lw == None and linewidth == None:
         linewidth = 4
     elif lw != None and linewidth == None:
         linewidth = lw
 
+    # Set Default linestyle
     if ls == None and linestyle == None:
         linestyle = "-"
     elif ls != None and linestyle == None:
         linestyle = ls
-
+    
+    # Arg is not a list or array, so make it accordingly
     if not isinstance(linestyle, (list, np.ndarray)):
         linestyle = [linestyle] * legend_count
 
     if not isinstance(handlestyle, (list, np.ndarray)):
         handlestyle = [handlestyle] * legend_count
 
-    if len(handlestyle) != legend_count:
-        raise RuntimeError("Number of HandleStyles should match number of Labels")
-
     if not isinstance(markersize, (list, np.ndarray)):
         markersize = [markersize] * legend_count
 
+    # If arg was inputted as an array, we need to check the user inputted it correctly
+    if len(handlestyle) != legend_count:
+        raise RuntimeError("Number of HandleStyles should match number of Labels")
+    
     if len(markersize) != legend_count:
         raise RuntimeError("Number of markersizes should match number of Labels")
+    
+    if len(linestyle) != legend_count:
+        raise RuntimeError("Number of linestyles should match number of Labels")
 
     custom_handles = []
 
@@ -127,6 +135,7 @@ def legend(
         ncol=ncol,
         columnspacing=columnspacing,
         handletextpad=handletextpad,
+        handlelength=handlelength,
         **kwargs
     )
 
