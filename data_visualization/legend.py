@@ -61,9 +61,6 @@ def legend(
     if len(markersize) != legend_count:
         raise RuntimeError("Number of markersizes should match number of Labels")
 
-    if handletextpad is None:
-        handletextpad = 0
-
     custom_handles = []
 
     for i in range(legend_count):
@@ -74,8 +71,6 @@ def legend(
         curr_markersize = markersize[i]
 
         if curr_handle in  ["bar","b"] :
-            # Increase handletextpad if a bar is used
-            handletextpad = 0.8
             marker_style = None
             curr_markersize = None
             curr_linestyle = linestyle[i]
@@ -120,7 +115,7 @@ def legend(
                 lw=linewidth,
             )
         )
-
+    print(handletextpad)
     leg = ax.legend(
         custom_handles,
         labels,
