@@ -49,7 +49,7 @@ def legend(ax, labels, colors, ncol = 1,
     print(markersize)
     custom_handles = []            
     
-        for i in range(legend_count):
+    for i in range(legend_count):
         
         
         curr_handle = handlestyle[i]
