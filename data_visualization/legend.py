@@ -46,7 +46,6 @@ def legend(ax, labels, colors, ncol = 1,
     if len(markersize) != legend_count:
         raise RuntimeError("Number of markersizes should match number of Labels")
                 
-    print(markersize)
     custom_handles = []            
     
     for i in range(legend_count):
