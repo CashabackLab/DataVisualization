@@ -51,7 +51,6 @@ def legend(ax, labels, colors, ncol = 1,
     
     for i in range(legend_count):
         
-        
         curr_handle = handlestyle[i]
         curr_color = colors[i]
         curr_linestyle = linestyle[i]
@@ -64,8 +63,8 @@ def legend(ax, labels, colors, ncol = 1,
             curr_linestyle = linestyle[i]
             
             curr_linecolor = curr_color
-            curr_facecolor = None
-            curr_edgecolor = None
+            curr_facecolor = "none"
+            curr_edgecolor = "none"
 
         elif curr_handle == "o":
             marker_style = "o"
