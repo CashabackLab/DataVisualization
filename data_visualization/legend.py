@@ -104,7 +104,7 @@ def legend(
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
 
-        elif curr_handle == "hollow circle":
+        elif curr_handle == "hollow_circle":
 
             marker_style = "o"
             curr_linestyle = "none"
