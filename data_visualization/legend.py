@@ -107,7 +107,7 @@ def legend(ax, labels, colors, ncol = 1,
             curr_facecolor = "none"
             curr_edgecolor = curr_color
 
-        custom_handles.append(Line2D([], [], marker=marker_style, markersize=curr_markersize, 
+        custom_handles.append(Line2D([], [], color=curr_linecolor, marker=marker_style, markersize=curr_markersize, 
                                      markerfacecolor=curr_facecolor, markeredgecolor=curr_edgecolor, 
                                      ls=curr_linestyle, lw=linewidth))
         
