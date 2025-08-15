@@ -118,7 +118,6 @@ def legend(
                 lw=linewidth,
             )
         )
-    print(handletextpad)
     leg = ax.legend(
         custom_handles,
         labels,
