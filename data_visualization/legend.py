@@ -79,7 +79,6 @@ def legend(
             marker_style = None
             curr_markersize = None
             curr_linestyle = linestyle[i]
-
             curr_linecolor = curr_color
             curr_facecolor = "none"
             curr_edgecolor = "none"
@@ -87,7 +86,6 @@ def legend(
         elif curr_handle == "o":
             marker_style = "o"
             curr_linestyle = "none"
-
             curr_linecolor = "none"
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
@@ -95,7 +93,6 @@ def legend(
         elif curr_handle == "circle":
             marker_style = "o"
             curr_linestyle = "none"
-
             curr_linecolor = "none"
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
@@ -103,7 +100,6 @@ def legend(
         elif curr_handle == "x":
             marker_style = "x"
             curr_linestyle = "none"
-
             curr_linecolor = "none"
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
@@ -112,7 +108,6 @@ def legend(
 
             marker_style = "o"
             curr_linestyle = "none"
-
             curr_linecolor = "none"
             curr_facecolor = "none"
             curr_edgecolor = curr_color
