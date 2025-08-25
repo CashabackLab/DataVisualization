@@ -102,7 +102,15 @@ def legend(
             
             curr_facecolor = curr_color
             curr_edgecolor = curr_color
-
+            
+        elif curr_handle in ["s",'square']:
+            marker_style = "s"
+            curr_linestyle = "none"
+            curr_linecolor = "none"
+            
+            curr_facecolor = curr_color
+            curr_edgecolor = curr_color
+            
         elif curr_handle == "hollow_circle":
             marker_style = "o"
             curr_linestyle = "none"
@@ -111,7 +119,7 @@ def legend(
             curr_facecolor = "none"
             curr_edgecolor = curr_color
         else:
-            raise KeyError(fr"handlestyle = '{curr_handle}' is not a valid option. Please use 'b'/'bar', 'o'/'circle', 'x', or 'hollow_circle'")
+            raise KeyError(fr"handlestyle = '{curr_handle}' is not a valid option. Please use 'b'/'bar', 'o'/'circle', 's'/'square', 'x', or 'hollow_circle'")
 
         custom_handles.append(
             Line2D(
