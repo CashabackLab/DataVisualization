@@ -119,8 +119,19 @@ def legend(
             curr_facecolor = "none"
             curr_edgecolor = curr_color
         else:
-            raise KeyError(fr"handlestyle = '{curr_handle}' is not a valid option. Please use 'b'/'bar', 'o'/'circle', 's'/'square', 'x', or 'hollow_circle'")
+            print("Marker not found in list. Using matplotlib default.")
+            marker_style = curr_handle
+            curr_linestyle = "none"
+            curr_linecolor = "none"
+            
+            curr_facecolor = curr_color
+            curr_edgecolor = curr_color
+            
+        # else:
+        #     raise KeyError(fr"handlestyle = '{curr_handle}' is not a valid option. Please use 'b'/'bar', 'o'/'circle', 's'/'square', 'x', or 'hollow_circle'")
 
+        # "Hack": adding our marker by creating a 'non-plotted' artist to use normal matplotlib functionality in the
+        # following ax.legend call.
         custom_handles.append(
             Line2D(
                 [],
