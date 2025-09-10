@@ -20,12 +20,15 @@ def legend(
     ls=None,
     handlestyle="bar",
     markersize=None,
+    hollow_marker=False,
     handletextpad=None,
     handlelength=1,
-    **kwargs
+    **kwargs # to pass to matplotlib legend call
 ):
     """
-    Creates Custom colored legend
+    Creates Custom colored legend. Markers can be the custom defined ones or matplotlib defaults. Latex math strings can also
+    be used as markers. To use LaTeX use rich text (r"$ $") in math mode. 
+    
     Parameters
     **kwargs: Additional keyword arguents to be passed to pyplot.legend()
 
@@ -75,6 +78,14 @@ def legend(
 
         curr_handle = handlestyle[i]
         curr_color = colors[i]
+
+        # if a hollow marker is desired
+        if hollow_marker:
+            curr_facecolor = "none"
+        else:
+            curr_facecolor = curr_color
+            
+            
         curr_linestyle = linestyle[i]
         curr_markersize = markersize[i]
 
@@ -87,30 +98,17 @@ def legend(
             curr_facecolor = "none"
             curr_edgecolor = "none"
 
+            if hollow_marker:
+                print("WARNING: Cannot use a hollow bar. Plotting a solid bar in legend.")
+
         elif curr_handle in ["o","circle"]:
             marker_style = "o"
             curr_linestyle = "none"
             
             curr_linecolor = "none"
-            curr_facecolor = curr_color
             curr_edgecolor = curr_color
 
-        elif curr_handle == "x":
-            marker_style = "x"
-            curr_linestyle = "none"
-            curr_linecolor = "none"
-            
-            curr_facecolor = curr_color
-            curr_edgecolor = curr_color
-            
-        elif curr_handle in ["s",'square']:
-            marker_style = "s"
-            curr_linestyle = "none"
-            curr_linecolor = "none"
-            
-            curr_facecolor = curr_color
-            curr_edgecolor = curr_color
-            
+        # Legacy, for backwards compatibility
         elif curr_handle == "hollow_circle":
             marker_style = "o"
             curr_linestyle = "none"
@@ -118,18 +116,23 @@ def legend(
             curr_linecolor = "none"
             curr_facecolor = "none"
             curr_edgecolor = curr_color
+            
+        # Legacy, for backwards compatibility   
+        elif curr_handle in ["s",'square']:
+            marker_style = "s"
+            curr_linestyle = "none"
+            curr_linecolor = "none"
+            
+            curr_edgecolor = curr_color
+            
         else:
-            print("Marker not found in list. Using matplotlib default.")
+            print("NOTE: Marker not found in data vizualization. Using matplotlib markers.")
             marker_style = curr_handle
             curr_linestyle = "none"
             curr_linecolor = "none"
             
-            curr_facecolor = curr_color
             curr_edgecolor = curr_color
-            
-        # else:
-        #     raise KeyError(fr"handlestyle = '{curr_handle}' is not a valid option. Please use 'b'/'bar', 'o'/'circle', 's'/'square', 'x', or 'hollow_circle'")
-
+        
         # "Hack": adding our marker by creating a 'non-plotted' artist to use normal matplotlib functionality in the
         # following ax.legend call.
         custom_handles.append(
