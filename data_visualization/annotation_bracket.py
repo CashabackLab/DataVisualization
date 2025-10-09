@@ -14,18 +14,12 @@ def square_brace(fig, ax, p1, p2, depth, c = 'black', **kwargs):
 
     # Doing some geometry to keep bracing lines perpendicular to the displacement line
     dx_d = abs(p1[0] - p2[0])
-    print("dx_d: ", dx_d)
     dy_d = abs(p1[1] - p2[1])
-    print("dy_d: ", dy_d)
     theta1 = np.arctan2(dx_d,dy_d)
     # theta1 = np.arctan(dx_d/dy_d)
-    print("theta1: ", theta1)
     theta2 = abs(np.pi/2 - theta1)
-    print(theta2)
     dx_1 = depth*np.sin(theta2)
     dy_1 = depth*np.cos(theta2)
-    print("dx_1: ", dx_1)
-    print("dy_1: ", dy_1)
     # getting the signs right on dx_1 and dx_2; geometry was done assuming 
     # x1<x2 and y1>y2, so here we correct for the cases when this isn't true
     if p1[0] > p2[0]:
