@@ -79,4 +79,4 @@ def jitter_array(ax, x_positions, data, noise_scale = 0.05, **kwargs):
 
         ax.scatter(x_positions, [np.nanmean(array) for array in data],
                     s = circle_size, facecolors = mean_color,
-                edgecolors=mean_color, alpha = 1, lw = circle_lw, zorder = mean_zorder, clip_on = clip_on)
+                edgecolors=mean_edge_color, alpha = 1, lw = circle_lw, zorder = mean_zorder, clip_on = clip_on)

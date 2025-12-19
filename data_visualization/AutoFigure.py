@@ -161,6 +161,10 @@ class AutoFigure:
         self.axmain.axis("off")
         
     def savefig(self, path, dpi=300, transparent = True):
+        '''Save the figure. Note that if you try to set the figure facecolor, and are using the
+        lab RC parameters it will reset it with the default (white). So you'll have to explicitly set
+        it using an argument to autofig.fig.savefig().  
+        '''
         self.remove_figure_borders()
         self.fig.savefig(path,dpi=dpi,transparent=transparent)
     

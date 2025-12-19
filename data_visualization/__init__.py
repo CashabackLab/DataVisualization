@@ -22,6 +22,8 @@ from .generate_icons import (
     get_foot_icon, 
     get_walking_icon)
 
+from .annotation_bracket import *
+
 from .generate_icons import get_elderly_icon, get_healthy_icon
 
 from .RotatingRectangle import *
@@ -40,4 +42,4 @@ import matplotlib as mpl
 mpl.rcParams["axes.facecolor"]   = "none"
 mpl.rcParams["figure.facecolor"] = "none"
 
-__version__ = "0.11.10"
+__version__ = "0.11.16"
