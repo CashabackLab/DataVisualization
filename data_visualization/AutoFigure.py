@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.transforms import Bbox
 import numpy as np
 from string import ascii_uppercase
 class AutoFigure:
@@ -159,10 +160,44 @@ class AutoFigure:
         # for spine in ['top','right','bottom','left']:
         self.axmain.axis("off")
         
-    def savefig(self,path,dpi=300, transparent = True):
+    def savefig(self, path, dpi=300, transparent = True):
         '''Save the figure. Note that if you try to set the figure facecolor, and are using the
         lab RC parameters it will reset it with the default (white). So you'll have to explicitly set
         it using an argument to autofig.fig.savefig().  
         '''
         self.remove_figure_borders()
         self.fig.savefig(path,dpi=dpi,transparent=transparent)
+    
+    def save_subplot(self, ax,  path, padx = 0.0, pady=0.0, dpi=300, transparent=True):
+        extent = self._full_extent(ax, padx=padx, pady=pady).transformed(self.fig.dpi_scale_trans.inverted())
+        self.fig.savefig(path, bbox_inches=extent, dpi=dpi, transparent=transparent)
+
+    def save_all_subplots(self, path, padx= None, pady= None, dpi=300, transparent=True):
+        if padx== None:
+            padx_list = [0.0]*len(self.fig.axes)
+        elif isinstance(padx, (float,int)):
+            padx_list = [padx]*len(self.fig.axes)
+
+        if pady== None:
+            pady_list = [0.0]*len(self.fig.axes)
+        elif isinstance(pady, (float,int)):
+            pady_list = [pady]*len(self.fig.axes)
+            
+        for i,(ax_label,ax) in enumerate(self.axes.items()):
+            if isinstance(path, list):
+                save_path = path[i]
+            else:
+                save_path = path + f'_{ax_label}.png'
+            self.save_subplot(ax, save_path, padx=padx_list[i], pady=pady_list[i], dpi=dpi, transparent=transparent )
+            
+    def _full_extent(self, ax, padx=0.0, pady=0.0):
+        """Get the full extent of an axes, including axes labels, tick labels, and
+        titles."""
+        # For text objects, we need to draw the figure first, otherwise the extents
+        # are undefined.
+        ax.figure.canvas.draw()
+        items = ax.get_xticklabels() + ax.get_yticklabels() 
+        items += [ax, ax.title, ax.xaxis.label, ax.yaxis.label]
+        bbox = Bbox.union([item.get_window_extent() for item in items])
+
+        return bbox.expanded(1.0 + padx, 1.0 + pady)
