@@ -1,3 +1,4 @@
+from pathlib import Path
 import matplotlib.pyplot as plt
 from matplotlib.transforms import Bbox
 import numpy as np
@@ -172,7 +173,10 @@ class AutoFigure:
         extent = self._full_extent(ax, padx=padx, pady=pady).transformed(self.fig.dpi_scale_trans.inverted())
         self.fig.savefig(path, bbox_inches=extent, dpi=dpi, transparent=transparent)
 
-    def save_all_subplots(self, path, padx= None, pady= None, dpi=300, transparent=True):
+    def save_all_subplots(self, path:Path | str | list[Path|str], padx= None, pady= None, dpi=300, transparent=True):
+        if isinstance(path, str):
+            path = Path(path)
+        
         if padx== None:
             padx_list = [0.0]*len(self.fig.axes)
         elif isinstance(padx, (float,int)):
@@ -187,7 +191,7 @@ class AutoFigure:
             if isinstance(path, list):
                 save_path = path[i]
             else:
-                save_path = path + f'_{ax_label}.png'
+                save_path = Path(path.as_posix() + f'_{ax_label}.png')
             self.save_subplot(ax, save_path, padx=padx_list[i], pady=pady_list[i], dpi=dpi, transparent=transparent )
             
     def _full_extent(self, ax, padx=0.0, pady=0.0):

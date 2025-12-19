@@ -1,3 +1,4 @@
+from pathlib import Path
 from data_visualization.AutoFigure import AutoFigure
 import matplotlib.pyplot as plt
 
