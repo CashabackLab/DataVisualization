@@ -100,7 +100,7 @@ def boxplot(ax, x, data, jitter_data = False, clip_on = True, **kwargs):
             
         if include_mean:
             ax.scatter(x, np.nanmean(filtered_data) ,
-                        s = data_size, facecolors = mean_color,
+                        s = mean_size, facecolors = mean_color,
                        edgecolors=mean_color, alpha = mean_alpha, lw = data_lw, zorder = mean_zorder, clip_on = clip_on)
         
     return ax
