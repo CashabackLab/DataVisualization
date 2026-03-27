@@ -1,7 +1,7 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-
+import warnings 
 def custom_legend(ax, labels: "List[String]", colors : "List of color names", ncol = 1,
                  fontsize = 6, linewidth = 4, framealpha = 0, loc = "best", fontweight = "bold",
                  columnspacing = 0, **kwargs):
@@ -116,7 +116,8 @@ def Custom_Legend(ax, labels: "List[String]", colors : "List of color names", nc
         DESCRIPTION.
 
     """
-    
+    warnings.warn("dv.Custom_Legend will be removed in the next update. Use dv.legend instead" , DeprecationWarning, stacklevel=2)
+                   
     if len(labels) != len(colors):
         raise RuntimeError("Number of Labels should match number of Colors.") 
         
